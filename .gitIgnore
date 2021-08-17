@@ -3,6 +3,7 @@ node_modules
 
 #files
 ./src/data/dbAccount
+./src/data/dbAccountPunishments
 .env
 package-lock.json
 start.bat
