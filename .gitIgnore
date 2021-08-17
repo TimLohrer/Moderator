@@ -2,8 +2,8 @@
 node_modules
 
 #files
-./src/data/dbAccount.json
-./src/data/dbAccountPunishments.json
+src/data/dbAccount.json
+src/data/dbAccountPunishments.json
 .env
 package-lock.json
 start.bat
