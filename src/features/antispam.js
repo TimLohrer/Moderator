@@ -19,10 +19,12 @@ module.exports = async function antispam(message, bot, db) {
             message.delete()
             msgs++;
             if (parseInt(msgs) === parseInt(antispam[2])) {
-                
-                if (antispam[0] === '2') {
-                    console.log(`${message.author.tag} spammed`)
-                }
+                if (antispam[0] === '1') { return bot.warn(message.member, 'Spamming', message, bot, db) }
+                if (antispam[0] === '2') { return bot.mute() }
+                if (antispam[0] === '3') { bot.mute(); return bot.warn(message.member, 'Spamming', message, bot, db) }
+                if (antispam[0] === '4') { return bot.kick() }
+                if (antispam[0] === '5') { return bot.tempban() }
+                if (antispam[0] === '6') { return bot.ban() }
             } else {
                 data.msgs = msgs;
                 userMap.set(message.author.id, data)

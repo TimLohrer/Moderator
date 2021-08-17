@@ -13,6 +13,7 @@ bot.send = require('./functions/send')
 bot.reply = require('./functions/reply')
 bot.error = require('./functions/error')
 bot.done = require('./functions/done')
+bot.warn = require('./features/warn')
 bot.embed = MessageEmbed
 bot.emoji = require('./data/emojis.json')
 bot.colors = require('./data/colors.json')

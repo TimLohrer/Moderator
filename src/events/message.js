@@ -6,7 +6,7 @@ const antispam = require('../features/antispam')
 module.exports = {
     name: "message",
     async execute (message, bot) {
-        if (message.author.bot) { return; }
+        if (message.author.bot || message.channel.type === 'DM') { return; }
         let data = await firebase.collection('guilds').doc(message.guild.id).get()
         let db = data.data()
         if (!db) {

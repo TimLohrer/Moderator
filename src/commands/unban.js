@@ -4,7 +4,7 @@ module.exports = {
     category: "moderation",
     description: "Unbans a member from this server.",
     usage: "unban <user ID> {reason}",
-    example: "unban 697888642290679940 his ok...",
+    example: "unban 697888642290679940 false ban",
     minArgs: 1,
     permissions: ["BAN_MEMBERS"],
     async execute(message, args, db, bot) {
