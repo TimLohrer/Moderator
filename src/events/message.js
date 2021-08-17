@@ -14,6 +14,7 @@ module.exports = {
                 prefix: process.env.PREFIX,
                 logs: null,
                 membercount: null,
+                antispam: null,
                 owner: message.guild.owner.user.id,
                 premium: false,
                 welcome: {

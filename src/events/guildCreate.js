@@ -8,6 +8,7 @@ module.exports = {
             prefix: process.env.PREFIX,
             logs: null,
             membercount: null,
+            antispam: null,
             owner: guild.owner.user.id,
             premium: false,
             welcome: {
