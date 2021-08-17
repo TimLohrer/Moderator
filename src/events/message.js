@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
 const fs = require('fs')
+const antispam = require('../functions/antispam')
 
 module.exports = {
     name: "message",
@@ -30,6 +31,7 @@ module.exports = {
             data = await firebase.collection('guilds').doc(message.guild.id).get()
             db = data.data()
         }
+        if (db.antispam !== null) { antispam(message, bot, db) }
         const args = message.content.slice(db.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
         if (message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
