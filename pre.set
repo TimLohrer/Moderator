@@ -1,0 +1,14 @@
+module.exports = {
+    name: "",
+    aliases: [],
+    category: "",
+    description: "",
+    usage: "",
+    example: "",
+    minArgs: 0,
+    maxArgs: 0,
+    permissions: [],
+    async execute(message, args, db, bot) {
+        
+    }
+}

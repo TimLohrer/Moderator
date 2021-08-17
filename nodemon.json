@@ -1,0 +1,3 @@
+{
+    "ignore": ["./src/*.set", "./src/.gitIgnore", "./src/*.json"]
+}
