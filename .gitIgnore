@@ -2,6 +2,7 @@
 node_modules
 
 #files
+./src/data/dbAccount
 .env
 package-lock.json
 start.bat

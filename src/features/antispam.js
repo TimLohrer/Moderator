@@ -16,9 +16,13 @@ module.exports = async function antispam(message, bot, db) {
             }, 5000)
             userMap.set(message.author.id, data)
         } else {
+            message.delete()
             msgs++;
             if (parseInt(msgs) === parseInt(antispam[2])) {
-                console.log("punish");
+                
+                if (antispam[0] === '2') {
+                    console.log(`${message.author.tag} spammed`)
+                }
             } else {
                 data.msgs = msgs;
                 userMap.set(message.author.id, data)
