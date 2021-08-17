@@ -1,2 +1,2 @@
-# Mod
+# Moderator
  Moderator Discord Bot
