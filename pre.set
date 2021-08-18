@@ -5,6 +5,7 @@ module.exports = {
     description: "",
     usage: "",
     example: "",
+    cooldown: 0,
     minArgs: 0,
     maxArgs: 0,
     permissions: [],

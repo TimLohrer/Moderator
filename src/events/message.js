@@ -2,6 +2,7 @@ const admin = require('firebase-admin');
 const firebase = admin.firestore();
 const fs = require('fs')
 const antispam = require('../features/antispam')
+const { Collection } = require('discord.js')
 
 module.exports = {
     name: "message",
@@ -66,6 +67,21 @@ module.exports = {
                 for (permission of cmd.permissions) { if(reqPerms === "") { reqPerms += `\`${permission}\`` } else { reqPerms += `, \`${permission}\`` } }
                 return bot.error(`You are missing the following permissions: ${reqPerms}`, message)
             }
+        }
+
+        if (cmd.cooldown && cmd.cooldown > 0) {
+            if (!bot.cooldowns.has(cmd.name)) { bot.cooldowns.set(cmd.name, new Collection()) }
+            const current_time = Date.now()
+            const time_stamps = bot.cooldowns.get(cmd.name);
+            const cooldown_ammount = (cmd.cooldown) * 1000
+            if (time_stamps.has(message.author.id)) {
+                const expiration_time = time_stamps.get(message.author.id) + cooldown_ammount;
+                if (current_time < expiration_time) {
+                    const time_left = (expiration_time - current_time) / 10
+                    return bot.error(`Please wait ${time_left.toFixed(1)} more secconds before using this command again!`, message)
+                }
+            }
+            time_stamps.set(message.author.id, current_time)
         }
 
         if (cmd.minArgs) { if (args.length < cmd.minArgs) { return bot.error(`This command requires a minimum of \`${cmd.minArgs}\` arguments!`, message)}}
