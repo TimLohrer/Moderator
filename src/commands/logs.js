@@ -16,17 +16,17 @@ module.exports = {
                 type: 'text',
                 permissionOverwrites: [{ id: message.guild.roles.everyone.id, deny: ["VIEW_CHANNEL"] }]
             })
-            await firebase.collection('guilds').doc(message.guild.id).update({ logs: `${channel.id}‎${channel.name}` })
+            await firebase.collection('guilds').doc(message.guild.id).update({ logs: `${channel.id}` })
             bot.done(`<#${channel.id}> will now be the logs channel.`, message)
             return bot.logs(`This will now be the logs channel.`, message)
         } else if (!args[0] && db.logs !== null) {
-            return bot.done(`The current logs channel is <#${db.logs.split('‎')[0]}>. Use \`${db.prefix}${command} none\` to disable audit-logs!`, message)
+            return bot.done(`The current logs channel is <#${db.logs}>. Use \`${db.prefix}${command} none\` to disable audit-logs!`, message)
         } else if (args[0] && args[0] !== "none") {
             const channel = message.mentions.channels.first()
             if (!channel) { return bot.error(`Please mention a channel!`, message) }
             if(!message.guild.channels.cache.get(channel.id)) { return bot.error(`\`${channel.name}\` is not a valid channel.`) }
             if (db.logs === channel.id) { return bot.error(`<#${channel.id}> is already the logs channel.`, message)}
-            await firebase.collection('guilds').doc(message.guild.id).update({ logs: `${channel.id}‎${channel.name}` })
+            await firebase.collection('guilds').doc(message.guild.id).update({ logs: `${channel.id}` })
             bot.done(`<#${channel.id}> will now be the logs channel.`, message)
             return bot.logs(`This will now be the logs channel.`, message)
         } else if (args[0] && args[0] === 'none') {

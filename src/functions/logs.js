@@ -12,6 +12,6 @@ module.exports = async (msg, message) => {
     .setDescription(msg)
     .setFooter(`Executed by ${message.author.tag}`)
     .setTimestamp()
-    const channel = message.guild.channels.cache.get(db.logs.split('‎')[0])
+    const channel = message.guild.channels.cache.get(db.logs)
     channel.send(embed)
 }

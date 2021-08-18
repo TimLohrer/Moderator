@@ -13,16 +13,17 @@ module.exports = {
         if (ammount === NaN) { return bot.error(`\`${args[0]}\` is not a valid number!`, message) }
         if (ammount > 99) { return bot.error(`The ammount has to be lower than \`99\`!`) }
         let channel
+        let amnt
         if (args[1] && message.mentions.channels.first()) {
             channel = message.mentions.channels.first()
-            channel.bulkDelete(ammount, false)
+            amnt = await channel.bulkDelete(ammount, false)
         } else {
             channel = message.channel
             ammount++
-            channel.bulkDelete(ammount, false)
+            amnt = await channel.bulkDelete(ammount, false)
             ammount -= 1
         }
-        bot.done(`Deleted \`${ammount}\` messages.`, message, 5)
-        bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
+        bot.done(`Deleted \`${amnt.size}\` messages.`, message, 5)
+        bot.logs(`Deleted \`${amnt.size}\` messages in <#${channel.id}>.`, message)
     }
 }

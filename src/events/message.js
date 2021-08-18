@@ -32,7 +32,7 @@ module.exports = {
             data = await firebase.collection('guilds').doc(message.guild.id).get()
             db = data.data()
         }
-        if (db.antispam !== null && !message.author.bot) { antispam(message, bot, db) }
+        if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }
         const args = message.content.slice(db.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
         if (message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
