@@ -7,7 +7,8 @@ const { Collection } = require('discord.js')
 module.exports = {
     name: "message",
     async execute (message, bot) {
-        if (message.author.bot || message.channel.type === 'DM') { return; }
+        if (message.author.bot) { return; }
+        if (message.channel.type === 'dm') { return bot.error(`Please only use my commands in server's!`, message, -1) }
         let data = await firebase.collection('guilds').doc(message.guild.id).get()
         let db = data.data()
         if (!db) {
@@ -33,7 +34,7 @@ module.exports = {
             data = await firebase.collection('guilds').doc(message.guild.id).get()
             db = data.data()
         }
-        if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }
+        // if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }
         const args = message.content.slice(db.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
         if (message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
@@ -77,7 +78,7 @@ module.exports = {
             if (time_stamps.has(message.author.id)) {
                 const expiration_time = time_stamps.get(message.author.id) + cooldown_ammount;
                 if (current_time < expiration_time) {
-                    const time_left = (expiration_time - current_time) / 10
+                    const time_left = (expiration_time - current_time) / 1000
                     return bot.error(`Please wait ${time_left.toFixed(1)} more secconds before using this command again!`, message)
                 }
             }

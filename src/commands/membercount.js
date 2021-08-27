@@ -8,6 +8,7 @@ module.exports = {
     description: "Creates a membercount for your server.",
     usage: "membercount",
     example: "membercount",
+    cooldown: 60,
     maxArgs: 1,
     permissions: ["MANAGE_GUILD"],
     async execute(message, args, db, bot, command) {
@@ -20,7 +21,7 @@ module.exports = {
             bot.done(`Created membercount!`, message)
             return bot.logs(`Created membercount.`, message)
         } else if (!args[0] && db.membercount !== null) {
-            return bot.error(`There is already a membercount. Use \`${db.prefix}${command} none\` to disable membercount!` ,message)
+            return bot.error(`The current membercount is <#${db.membercount}>. Use \`${db.prefix}${command} none\` to disable membercount!` ,message)
         } else if (args[0] && args[0] == 'none' && db.membercount !== null) {
             const channel = message.guild.channels.cache.get(db.membercount)
             channel.delete()

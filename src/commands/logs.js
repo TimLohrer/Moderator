@@ -8,6 +8,7 @@ module.exports = {
     description: "Set a audit-Logs channel.",
     usage: "logs <channel / none>",
     example: "logs #logs",
+    cooldown: 60,
     maxArgs: 1,
     permissions: ["MANAGE_GUILD"],
     async execute(message, args, db, bot, command) {

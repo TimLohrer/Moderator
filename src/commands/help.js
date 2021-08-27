@@ -55,10 +55,12 @@ module.exports = {
                 if (cmd.permissions) { for (permission of cmd.permissions) { if(perms === "") { perms += `\`${permission}\`` } else { perms += `, \`${permission}\`` }}} else { perms = `\`No permissions required.\`` }
                 let aliases = ""
                 if (cmd.aliases) { for (alias of cmd.aliases) { if (alias !== cmd.name) { if(aliases === "") { aliases += `\`${alias}\`` } else { aliases += `, \`${alias}\`` }}}} else { aliases = `\`This command doesen't have any aliases.\``}
+                let cooldown = ""
+                if (cmd.cooldown) { cooldown = `${cmd.cooldown} sec` } else { cooldown = 'This command doesn\'t have a cooldown!' }
                 const embed = new bot.embed()
                 embed.setTitle(`Help for command ${cmd.name || cmd}`)
                 if (cmd.name) {
-                    embed.setDescription(`\nName: \`${cmd.name}\` \n\nAliases: ${aliases} \n\nDescription: \`${cmd.description}\` \n\nCategory: \`${cmd.category}\` \n\nUsage: \`${db.prefix}${cmd.usage}\` \n\nExample: \`${db.prefix}${cmd.example.replace('{user}', message.author.tag)}\` \n\nPermissions: ${perms}`)
+                    embed.setDescription(`\nName: \`${cmd.name}\` \n\nAliases: ${aliases} \n\nDescription: \`${cmd.description}\` \n\nCategory: \`${cmd.category}\` \n\nUsage: \`${db.prefix}${cmd.usage}\` \n\nExample: \`${db.prefix}${cmd.example.replace('{user}', message.author.tag)}\` \n\nCooldown: \`${cooldown}\` \n\nPermissions: ${perms}`)
                 } else {
                     embed.setDescription(`This command is currently disabled!`)
                 }

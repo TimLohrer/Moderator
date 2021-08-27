@@ -8,6 +8,7 @@ module.exports = {
     description: "Set a custom Prefix!",
     usage: "prefix {new Prefix}",
     example: "prefix -",
+    cooldown: 60,
     minArgs: 1,
     maxArgs: 1,
     permissions: ["MANAGE_GUILD"],
