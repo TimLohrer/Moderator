@@ -48,7 +48,7 @@ module.exports = {
                 if (Embed.description !== null) { embed.setDescription(description) }
                 if(Embed.footer !== null) { embed.setFooter(footer) }
                 embed.setColor(Embed.color)
-                member.guild.channels.cache.get(db.welcome.channel.split('‎')[0]).send(embed)
+                member.guild.channels.cache.get(db.welcome.channel).send(embed)
             } else if (db.welcome.ifembed === false && db.welcome.msg) {
                 let msg = db.welcome.msg
                 for (let i = 0; i < msg.split(' ').length; i++){
@@ -61,7 +61,7 @@ module.exports = {
                     msg = msg.replace('{@', '<@&')
                     msg = msg.replace('@}', '>')
                 }
-                member.guild.channels.cache.get(db.welcome.channel.split('‎')[0]).send(msg)
+                member.guild.channels.cache.get(db.welcome.channel).send(msg)
             }
         }
     }

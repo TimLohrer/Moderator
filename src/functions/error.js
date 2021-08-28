@@ -7,7 +7,7 @@ module.exports = async function error(err, msg, dur = 10) {
     if (!msg) { return log(`Missing message object!`, `src/functions/error.js`, 'ERROR')}
     const embed = new MessageEmbed()
     .setTitle('Error')
-    .setDescription(`${emoji.nope} ${err}`)
+    .setDescription(`${emoji.error} ${err}`)
     .setColor(red)
     const message = await msg.lineReply(embed)
     if (dur < 1) { return; }

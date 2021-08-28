@@ -70,7 +70,7 @@ module.exports = {
             }
         }
 
-        if (cmd.cooldown && cmd.cooldown > 0) {
+        if (cmd.cooldown && cmd.cooldown > 0 && !bot.devs.includes(message.author.id)) {
             if (!bot.cooldowns.has(cmd.name)) { bot.cooldowns.set(cmd.name, new Collection()) }
             const current_time = Date.now()
             const time_stamps = bot.cooldowns.get(cmd.name);
@@ -79,7 +79,7 @@ module.exports = {
                 const expiration_time = time_stamps.get(message.author.id) + cooldown_ammount;
                 if (current_time < expiration_time) {
                     const time_left = (expiration_time - current_time) / 1000
-                    return bot.error(`Please wait ${time_left.toFixed(1)} more secconds before using this command again!`, message)
+                    return bot.error(`Please wait \`${time_left.toFixed(1)}\` more secconds before using this command again!`, message)
                 }
             }
             time_stamps.set(message.author.id, current_time)

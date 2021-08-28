@@ -10,9 +10,9 @@ module.exports = {
         const embed = new bot.embed()
         .setTitle('Config')
         .addField('Prefix:', `\`${db.prefix}\``)
-        if (db.logs) { embed.addField(`Logs:`, `<#${db.logs}>`) } else { embed.addField(`Logs:`, bot.emoji.nope) }
-        if (db.membercount) { embed.addField(`Membercount:`, `<#${db.membercount}>`) } else { embed.addField(`Membercount:`, bot.emoji.nope) }
-        if (db.premium == true) { embed.addField(`Premium:`, `${bot.emoji.premium} True`) } else { embed.addField(`Premium:`, bot.emoji.nope) }
+        if (db.logs) { embed.addField(`Logs:`, `<#${db.logs}>`) } else { embed.addField(`Logs:`, bot.emoji.error) }
+        if (db.membercount) { embed.addField(`Membercount:`, `<#${db.membercount}>`) } else { embed.addField(`Membercount:`, bot.emoji.error) }
+        if (db.premium == true) { embed.addField(`Premium:`, `${bot.emoji.premium} True`) } else { embed.addField(`Premium:`, bot.emoji.error) }
         embed.setColor("ORANGE")
         bot.reply(embed, message)
     }

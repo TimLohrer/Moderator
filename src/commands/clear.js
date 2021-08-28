@@ -16,14 +16,13 @@ module.exports = {
         let channel
         if (args[1] && message.mentions.channels.first()) {
             channel = message.mentions.channels.first()
-            channel.bulkDelete(ammount, false)
+            try { bot.done(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message, 5); await channel.bulkDelete(ammount, false) } catch { return bot.error(`You can only delete messages from the past 14 days!`, message) }
+            bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
         } else {
             channel = message.channel
             ammount++
-            channel.bulkDelete(ammount, false)
-            ammount -= 1
+            try { bot.done(`Deleted \`${ammount -= 1}\` messages.`, message, 5); await channel.bulkDelete(ammount, false) } catch { return bot.error(`You can only delete messages from the past 14 days!`, message) }
+            bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
         }
-        bot.done(`Deleted \`${ammount}\` messages.`, message, 5)
-        bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
     }
 }
