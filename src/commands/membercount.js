@@ -18,8 +18,8 @@ module.exports = {
                 permissionOverwrites: [{ id: message.guild.roles.everyone.id, deny: ['CONNECT'] },],
             })
             await firebase.collection('guilds').doc(message.guild.id).update({ membercount: channel.id })
-            bot.done(`Created membercount!`, message)
-            return bot.logs(`Created membercount.`, message)
+            bot.done(`Created <#${channel.id}>!`, message)
+            return bot.logs(`Created <#${channel.id}>.`, message)
         } else if (!args[0] && db.membercount !== null) {
             return bot.error(`The current membercount is <#${db.membercount}>. Use \`${db.prefix}${command} none\` to disable membercount!` ,message)
         } else if (args[0] && args[0] == 'none' && db.membercount !== null) {

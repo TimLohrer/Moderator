@@ -46,7 +46,7 @@ module.exports = {
             .setDescription(`My Prefix for this server is \`${db.prefix}\`. \nDo \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
             .setColor("ORANGE")
             bot.reply('📬 Check your DM\'s!', message, 10)
-            return bot.send(embed, message.author)
+            try { return bot.send(embed, message.author) } catch (e) { console.log(e) }
         }
         if (args[0]) {
             if (bot.commands.has(lowArgs[0]) || bot.aliases.has(lowArgs[0]) || commandFiles.includes(`${lowArgs[0]}.js`)) {

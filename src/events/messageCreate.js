@@ -8,7 +8,7 @@ module.exports = {
     name: "message",
     async execute (message, bot) {
         if (message.author.bot) { return; }
-        if (message.channel.type === 'dm') { return bot.error(`Please only use my commands in server's!`, message, -1) }
+        if (message.channel.type === 'dm') { try { return bot.error(`Please only use my commands in server's!`, message, -1) } catch (e) { console.log(e) } }
         let data = await firebase.collection('guilds').doc(message.guild.id).get()
         let db = data.data()
         if (!db) {
