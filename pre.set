@@ -6,6 +6,7 @@ module.exports = {
     usage: "",
     example: "",
     cooldown: 0,
+    id: 0,
     minArgs: 0,
     maxArgs: 0,
     permissions: [],

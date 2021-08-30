@@ -4,12 +4,13 @@ const firebase = admin.firestore();
 module.exports = {
     name: "membercount",
     aliases: ["membercount", "mcount", "mbc", "mc"],
-    category: "utility",
+    category: "UTILITY",
     description: "Creates a membercount for your server.",
-    usage: "membercount",
-    example: "membercount",
+    usage: " ",
+    example: " ",
     cooldown: 60,
     maxArgs: 1,
+    id: 8,
     permissions: ["MANAGE_GUILD"],
     async execute(message, args, db, bot, command) {
         if (!args[0] && db.membercount === null) {
@@ -21,7 +22,7 @@ module.exports = {
             bot.done(`Created <#${channel.id}>!`, message)
             return bot.logs(`Created <#${channel.id}>.`, message)
         } else if (!args[0] && db.membercount !== null) {
-            return bot.error(`The current membercount is <#${db.membercount}>. Use \`${db.prefix}${command} none\` to disable membercount!` ,message)
+            return bot.info(`The current membercount is <#${db.membercount}>. Use \`${db.prefix}${command} none\` to **disable** membercount!` ,message)
         } else if (args[0] && args[0] == 'none' && db.membercount !== null) {
             const channel = message.guild.channels.cache.get(db.membercount)
             channel.delete()

@@ -5,11 +5,12 @@ const firebase = admin.firestore();
 module.exports = {
     name: "tempban",
     aliases: ["tempban", "timeban", "tban", "tb"],
-    category: "moderation",
+    category: "MODERATION",
     description: "Temporarily banns a member from this server.",
-    usage: "tempban <user> {time (sec/min/h/d)} {reason}",
-    example: "tempban @lmes 5h being anoying",
+    usage: "<user> {time (sec/min/h/d)} {reason}",
+    example: "@{user} 5h being to epic",
     minArgs: 2,
+    id: 12,
     permissions: ["BAN_MEMBERS"],
     async execute(message, args, db, bot) {
         let target = message.mentions.users.first()

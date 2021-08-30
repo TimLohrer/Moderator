@@ -1,11 +1,12 @@
 module.exports = {
     name: "ban",
     aliases: ["ban", "b"],
-    category: "moderation",
+    category: "MODERATION",
     description: "Banns a member from this server.",
     usage: "ban <user> {reason}",
     example: `ban @{user} being anoying`,
     minArgs: 1,
+    id: 1,
     permissions: ["BAN_MEMBERS"],
     async execute(message, args, db, bot) {
         let target = message.mentions.users.first()

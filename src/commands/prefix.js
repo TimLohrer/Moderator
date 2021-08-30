@@ -3,14 +3,15 @@ const firebase = admin.firestore();
 
 module.exports = {
     name: "prefix",
-    aliases: ["prefix", "setPrefix"],
-    category: "utility",
+    aliases: ["prefix", "setPrefix", "botPrefix"],
+    category: "UTILITY",
     description: "Set a custom Prefix!",
-    usage: "prefix {new Prefix}",
-    example: "prefix -",
+    usage: "{new Prefix}",
+    example: "-",
     cooldown: 60,
     minArgs: 1,
     maxArgs: 1,
+    id: 10,
     permissions: ["MANAGE_GUILD"],
     async execute(message, args, db, bot) {
         const newPrefix = args[0].toString()

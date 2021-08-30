@@ -6,6 +6,7 @@ module.exports = {
     description: " ",
     usage: " ",
     example: " ",
+    id: 4,
     async execute(message, args, db, bot) {
         if (!bot.devs.includes(message.member.id)) { return; }
         async function consl (msg, path, type, tag) {

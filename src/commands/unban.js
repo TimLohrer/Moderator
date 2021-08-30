@@ -3,9 +3,10 @@ module.exports = {
     aliases: ["unban", "uban", "ub"],
     category: "moderation",
     description: "Unbans a member from this server.",
-    usage: "unban <user ID> {reason}",
-    example: "unban 697888642290679940 false ban",
+    usage: "<user ID> {reason}",
+    example: "697888642290679940 false ban",
     minArgs: 1,
+    id: 13,
     permissions: ["BAN_MEMBERS"],
     async execute(message, args, db, bot) {
         const id = args[0]

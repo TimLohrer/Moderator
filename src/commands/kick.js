@@ -1,11 +1,12 @@
 module.exports = {
     name: "kick",
     aliases: ["kick", "k", "yeet"],
-    category: "moderation",
+    category: "MODERATION",
     description: "Kicks a member from this server.",
-    usage: "kick <user> {reason}",
-    example: "kick @lems being anoying",
+    usage: "<user> {reason}",
+    example: "@{user} being too cool",
     minArgs: 1,
+    id: 6,
     permissions: ["KICK_MEMBERS"],
     async execute(message, args, db, bot) {
         let target = message.mentions.users.first()

@@ -2,6 +2,7 @@ const admin = require('firebase-admin');
 const firebase = admin.firestore();
 const fs = require('fs')
 const antispam = require('../features/antispam')
+const get_db = require('../functions/get_db')
 const { Collection } = require('discord.js')
 
 module.exports = {
@@ -9,13 +10,13 @@ module.exports = {
     async execute (message, bot) {
         if (message.author.bot) { return; }
         if (message.channel.type === 'dm') { try { return bot.error(`Please only use my commands in server's!`, message, -1) } catch (e) { console.log(e) } }
-        let data = await firebase.collection('guilds').doc(message.guild.id).get()
-        let db = data.data()
+        let db = await get_db(message.guild)
         if (!db) {
             await firebase.collection('guilds').doc(message.guild.id).set({
                 prefix: process.env.PREFIX,
                 logs: null,
                 membercount: null,
+                autorole: null,
                 antispam: null,
                 owner: message.guild.owner.user.id,
                 premium: false,
@@ -31,8 +32,7 @@ module.exports = {
                     },
                 },
             })
-            data = await firebase.collection('guilds').doc(message.guild.id).get()
-            db = data.data()
+            db = await get_db(message.guild)
         }
         // if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }
         const args = message.content.slice(db.prefix.length).trim().split(/ +/);

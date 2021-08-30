@@ -1,10 +1,12 @@
 module.exports = {
     name: "config",
     aliases: ["config", "botconfig"],
-    category: "misc",
+    category: "MISC",
     description: "Shows my configuration for this server.",
-    usage: "config",
-    example: "config",
+    usage: " ",
+    example: " ",
+    maxArgs: 1,
+    id: 3,
     permissions: ["MANAGE_GUILD"],
     async execute(message, args, db, bot) {
         const embed = new bot.embed()

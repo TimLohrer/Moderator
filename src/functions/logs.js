@@ -1,12 +1,10 @@
 const { MessageEmbed } = require('discord.js')
 const log = require('./log')
-const admin = require('firebase-admin');
-const firebase = admin.firestore();
+const get_db = require('./get_db');
 
 module.exports = async (msg, message) => {
     if (!message) { return log(`Missing message object!`, `src/functions/logs.js`, 'ERROR') }
-    let data = await firebase.collection('guilds').doc(message.guild.id).get()
-    let db = data.data()
+    let db = await get_db(message.guild)
     if (!db.logs || db.prefix === null) { return; }
     const embed = new MessageEmbed()
     .setDescription(msg)

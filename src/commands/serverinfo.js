@@ -3,8 +3,9 @@ module.exports = {
     aliases: ["serverinfo", "sinfo", "si", "serveri"],
     category: "misc",
     description: "Shows usefull information about this server.",
-    usage: "serverinfo",
-    example: "serverinfo",
+    usage: " ",
+    example: " ",
+    id: 11,
     async execute(message, args, db, bot) {
         const { guild } = message
         const embed = new bot.embed()

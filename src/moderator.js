@@ -4,6 +4,7 @@ const bot = new Client()
 const fs = require('fs');
 const admin = require('firebase-admin');
 const dbAccount = require('./data/dbAccount.json');
+const { brotliCompress } = require('zlib');
 admin.initializeApp({ credential: admin.credential.cert(dbAccount) });
 
 bot.get_db = require('./functions/get_db')
@@ -13,6 +14,7 @@ bot.send = require('./functions/send')
 bot.reply = require('./functions/reply')
 bot.error = require('./functions/error')
 bot.done = require('./functions/done')
+bot.info = require('./functions/info')
 bot.warn = require('./punishments/warn')
 bot.embed = MessageEmbed
 bot.emoji = require('./data/emojis.json')
@@ -43,6 +45,7 @@ const functionFiles = fs.readdirSync('./src/functions').filter(file => file.ends
 for (const file of functionFiles) {
     bot.log(`Loaded function ${file.split('.')[0]}`, `src/functions/${file}`, 'SUCCESS')
 }
+
 console.log(" ");
 const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -52,6 +55,7 @@ for (const file of commandFiles) {
     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${file}`, `ERROR`) }
+    else if (!cmd.id) { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${file}`, `ERROR`) } else {
 	    bot.commands.set(cmd.name, cmd);
         if (cmd.aliases && cmd.aliases !== []) { for (alias of cmd.aliases) { bot.aliases.set(alias, cmd) } }
