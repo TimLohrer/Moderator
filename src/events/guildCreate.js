@@ -1,53 +1,24 @@
-const admin = require('firebase-admin');
-const firebase = admin.firestore();
+const get_db = require('../functions/get_db')
 
 module.exports = {
     name: "guildCreate",
     async execute (guild, bot) {
-        firebase.collection('guilds').doc(guild.id).set({
-            prefix: process.env.PREFIX,
-            logs: null,
-            membercount: null,
-            autorole: null,
-            antispam: null,
-            owner: guild.owner.user.id,
-            premium: false,
-            welcome: {
-                channel: null,
-                msg: null,
-                ifembed: false,
-                embed: {
-                    title: null,
-                    description: null,
-                    footer: null,
-                    color: null,
-                },
-            },
-        })
-
+        await get_db(guild.id)
         const embed = new bot.embed()
         .setTitle(`I have joined a new guild! (\`${bot.guilds.cache.size}\`)`)
         .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
         .addFields(
             {
-                name: '🛑 Name',
-                value: `${guild.name}`,
-                inline: true
+                name: '🛑 Name', value: `${guild.name}`, inline: true
             },
             {
-                name: '🕵️‍♂️ Owner',
-                value: `${guild.owner.user.tag}`,
-                inline: true
+                name: '🕵️‍♂️ Owner', value: `${guild.owner.user.tag}`, inline: true
             },
             {
-                name: '📊 Members',
-                value: `${guild.memberCount}`,
-                inline: true
+                name: '📊 Members', value: `${guild.memberCount}`, inline: true
             },
             {
-                name: '🌎 Region',
-                value: `${guild.region}`,
-                inline: true
+                name: '🌎 Region', value: `${guild.region}`, inline: true
             }
         )
         .setTimestamp()

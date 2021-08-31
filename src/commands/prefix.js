@@ -15,7 +15,7 @@ module.exports = {
     permissions: ["MANAGE_GUILD"],
     async execute(message, args, db, bot) {
         const newPrefix = args[0].toString()
-        if (newPrefix.length > 5) { return bot.error(`This maximum lengthh is \`5\`!`, message) }
+        if (newPrefix.length > 5) { return bot.error(`This maximum length is \`5\`!`, message) }
         await firebase.collection('guilds').doc(message.guild.id).update({ prefix: newPrefix })
         bot.done(`Changed Prefix to \`${newPrefix}\`.`, message)
         bot.logs(`Changed prefix from \`${db.prefix}\` to \`${newPrefix}\`.`, message)

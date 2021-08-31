@@ -11,29 +11,7 @@ module.exports = {
         if (message.author.bot) { return; }
         if (message.channel.type === 'dm') { try { return bot.error(`Please only use my commands in server's!`, message, -1) } catch (e) { console.log(e) } }
         let db = await get_db(message.guild)
-        if (!db) {
-            await firebase.collection('guilds').doc(message.guild.id).set({
-                prefix: process.env.PREFIX,
-                logs: null,
-                membercount: null,
-                autorole: null,
-                antispam: null,
-                owner: message.guild.owner.user.id,
-                premium: false,
-                welcome: {
-                    channel: null,
-                    msg: null,
-                    ifembed: false,
-                    embed: {
-                        title: null,
-                        description: null,
-                        footer: null,
-                        color: null,
-                    },
-                },
-            })
-            db = await get_db(message.guild)
-        }
+        if (message.guild.ownerID !== db.owner) { await firebase.collection('guilds').doc(message.guild.id).update({ owner: message.guild.ownerID }) }
         // if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }
         const args = message.content.slice(db.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
@@ -59,7 +37,9 @@ module.exports = {
             }
             return;
         }
-        if(!message.guild.me.permissions.has('ADMINISTRATOR')) { return bot.send(`I can't execute this command, since I am missing the permission \`ADMINISTRATOR\`! \nPlease make sure to inform an Admin about this issue.`, message.author) }
+        if (cmd.name !== 'dev' && db.disabled !== null && db.disabled.toString().split('').includes(cmd.id.toString()) === true) { return bot.info(`This command was **disabled** for **this server** by an **Admin**...`, message, 30) }
+        if(!message.guild.me.permissions.has('ADMINISTRATOR')) { return bot.info(`I can't execute this command, since I am missing the permission \`ADMINISTRATOR\`! \n\n**Please make sure to inform an Admin about this issue!**`, message, 60) }
+        if (message.guild.roles.cache.size - 1 > message.guild.roles.cache.find(role => role.name === bot.user.username).position) { return bot.error(`Please move my role (${message.guild.roles.cache.find(role => role.name === bot.user.username)}) **above** ${message.guild.roles.cache.find(role => role.position === message.guild.roles.cache.size - 1)} in your server settings! \nThis is important for some commands to work! \n\n**Please make sure to inform an Admin about this issue!**`, message, 60) }
         if (message.channel.type === 'dm') { return bot.send(`Hey <@${message.author.id}>, \nPlease only use my commands in servers...`, message.channel) }
         if (cmd.permissions) {
             for (permission of cmd.permissions) {
@@ -69,7 +49,6 @@ module.exports = {
                 return bot.error(`You are missing the following permissions: ${reqPerms}`, message)
             }
         }
-
         if (cmd.cooldown && cmd.cooldown > 0 && !bot.devs.includes(message.author.id)) {
             if (!bot.cooldowns.has(cmd.name)) { bot.cooldowns.set(cmd.name, new Collection()) }
             const current_time = Date.now()

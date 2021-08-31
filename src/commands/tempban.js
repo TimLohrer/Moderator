@@ -1,6 +1,4 @@
 const ms = require('ms')
-const admin = require('firebase-admin');
-const firebase = admin.firestore();
 
 module.exports = {
     name: "tempban",

@@ -30,7 +30,13 @@ module.exports = {
         for (let cmd of commandFiles) {
             if(cmd.split('.')[0] !== 'dev') {
                 if (bot.commands.has(cmd.split('.')[0])) {
-                    commands.push(bot.commands.get(cmd.split('.')[0]))
+                    if (db.disabled !== null) {
+                        if (db.disabled.toString().split('').includes(toString(cmd.id))) {
+                            commands.push(`${cmd.split('.')[0]}|Disabled for this server.`)
+                        } else {
+                            commands.push(bot.commands.get(cmd.split('.')[0])) 
+                        }
+                    }                   
                 } else {
                     commands.push(`${cmd.split('.')[0]}|Currently disabled.`)
                 }
@@ -39,7 +45,7 @@ module.exports = {
         if (!args[0] || message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
             let cmds = ""
             let ctgrys = ""
-            for (let cmd of commands) { if (cmd.name) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\``}}
+            for (let cmd of commands) { if (cmd.name) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\`` }}
             for (let category of categorys) { if (ctgrys === "" && category.toLowerCase() !== 'dev') { ctgrys += `\`${category.toUpperCase()}\`` } else if (category.toLowerCase() !== 'dev') { ctgrys += `, \`${category.toUpperCase()}\`` } }
             const embed = new bot.embed()
             .setTitle(`Help`)

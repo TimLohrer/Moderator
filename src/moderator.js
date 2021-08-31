@@ -4,7 +4,6 @@ const bot = new Client()
 const fs = require('fs');
 const admin = require('firebase-admin');
 const dbAccount = require('./data/dbAccount.json');
-const { brotliCompress } = require('zlib');
 admin.initializeApp({ credential: admin.credential.cert(dbAccount) });
 
 bot.get_db = require('./functions/get_db')
@@ -55,7 +54,7 @@ for (const file of commandFiles) {
     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${file}`, `ERROR`) }
-    else if (!cmd.id) { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
+    else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${file}`, `ERROR`) } else {
 	    bot.commands.set(cmd.name, cmd);
         if (cmd.aliases && cmd.aliases !== []) { for (alias of cmd.aliases) { bot.aliases.set(alias, cmd) } }

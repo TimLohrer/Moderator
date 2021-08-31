@@ -9,7 +9,7 @@ module.exports = async function info(message, msg, dur = 15, custom_emoji = emoj
     .setTitle('Info')
     .setDescription(`${custom_emoji} ${message}`)
     .setColor("ORANGE")
-    const reply = msg.lineReply(embed)
+    const reply = await msg.lineReply(embed)
     if (dur < 1) { return; }
     setTimeout(() => { if(msg.deleted === false) { msg.delete() } if(reply.deleted === false) { reply.delete() } }, dur * 1000)
 }

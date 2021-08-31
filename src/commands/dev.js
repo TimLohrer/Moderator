@@ -1,3 +1,5 @@
+const admin = require('firebase-admin');
+const firebase = admin.firestore();
 const fs = require('fs');
 
 module.exports = {
@@ -6,7 +8,6 @@ module.exports = {
     description: " ",
     usage: " ",
     example: " ",
-    id: 4,
     async execute(message, args, db, bot) {
         if (!bot.devs.includes(message.member.id)) { return; }
         async function consl (msg, path, type, tag) {
@@ -41,6 +42,7 @@ module.exports = {
                     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
+                    else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
                     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) } else {
                         bot.commands.set(cmd.name, cmd);
                         if (cmd.aliases && cmd.aliases !== []) { for (let i = 0; i < cmd.aliases.length; i++) { bot.aliases.set(cmd.aliases[i], cmd)}}
@@ -74,6 +76,7 @@ module.exports = {
                             else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                             else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                             else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
+                            else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
                             else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) } else {
                                 bot.commands.delete(cmd.name, cmd);
                                 if (cmd.aliases && cmd.aliases !== []) { for (let i = 0; i < cmd.aliases.length; i++) { bot.aliases.delete(cmd.aliases[i], cmd)}}
@@ -98,6 +101,7 @@ module.exports = {
                     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command description!`, `ERROR`, `src/commands/${cmd.name}.js`, message.author.tag) }
                     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
+                    else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
                     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) } else {
                         bot.commands.delete(cmd.name, cmd);
                         if (cmd.aliases && cmd.aliases !== []) { for (let i = 0; i < cmd.aliases.length; i++) { bot.aliases.delete(cmd.aliases[i], cmd)}}
@@ -161,6 +165,24 @@ module.exports = {
             bot.login(process.env.TOKEN)
             consl('Restarting...', 'src/commands/dev.js', 'SUCCESS', message.author.tag)
             return message.react('✅')
+        }
+        if (command.toLowerCase() === 'db') {
+            let guildID = args[1]
+            let key = args[2]
+            let value = args[3]
+            if (bot.guilds.cache.get(guildID) === undefined) { return message.react('⚠️') }
+            if (key.toLowerCase() === 'premium') {
+                value = JSON.parse(value)
+                if (value !== true && value !== false) { return message.react('⚠️') }
+                try { await firebase.collection('guilds').doc(guildID).update({ premium: value }) } 
+                catch (e) { return bot.error(`\`\`\`${e}\`\`\``) }
+                consl(`Set key \`${key}\` for guild \`${bot.guilds.cache.get(guildID).name} (${guildID})\` to value \`${value}\`!`, `src/commands/dev.js`, `SUCCESS`, message.author.tag)
+                return message.react('✅')
+            } else if (key.toLowerCase() === '') {
+                
+            }else {
+                return message.react('❌')
+            }
         }
     }
 }
