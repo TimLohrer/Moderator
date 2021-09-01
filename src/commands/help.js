@@ -30,8 +30,8 @@ module.exports = {
         for (let cmd of commandFiles) {
             if(cmd.split('.')[0] !== 'dev') {
                 if (bot.commands.has(cmd.split('.')[0])) {
-                    if (db.disabled !== null) {
-                        if (db.disabled.toString().split('').includes(toString(cmd.id))) {
+                    if (db.disabled !== []) {
+                        if (db.disabled.includes(bot.commands.get(cmd.split('.')[0]).id)) {
                             commands.push(`${cmd.split('.')[0]}|Disabled for this server.`)
                         } else {
                             commands.push(bot.commands.get(cmd.split('.')[0])) 

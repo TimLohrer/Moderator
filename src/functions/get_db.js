@@ -13,7 +13,7 @@ module.exports = async (guild) => {
                 membercount: null,
                 autorole: null,
                 antispam: null,
-                disabled: null,
+                disabled: [],
                 owner: guild.owner.user.id,
                 premium: false,
                 welcome: {

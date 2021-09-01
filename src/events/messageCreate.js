@@ -20,7 +20,7 @@ module.exports = {
                 if (bot.commands.has('help')) {
                     bot.commands.get('help').execute(message, args, db, bot)
                 } else {
-                    return bot.error(`This command is currently disabled due to maintenence... Try again in \`5min\`!`, message)
+                    return bot.error(`This command is currently disabled globaly due to maintenance... Try again in \`5min\`!`, message)
                 }
             }
         }
