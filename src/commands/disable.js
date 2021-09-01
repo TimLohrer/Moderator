@@ -22,13 +22,13 @@ module.exports = {
             const CMD = bot.commands.get(command) || bot.aliases.get(command)
             for (let cmd of commandFiles) {
                 if(!ALWAYS_ON.includes(CMD.name)) {
-                        if (CMD.name === command.toLowerCase() || cmd.aliases.includes(command.toLowerCase())) {
-                            if (db.disabled.includes(CMD.id)) { return bot.error(`The command \`${command}\` is **already disabled** for this server. If you want to **enable** it again, do \`${db.prefix}enable ${command.toLowerCase()}\`!`, message) }
+                        if (CMD.name === command.toLowerCase() || CMD.aliases.includes(command.toLowerCase())) {
+                            if (db.disabled.includes(CMD.id)) { return bot.error(`The command \`${CMD.name}\` is **already disabled** for this server. If you want to **enable** it again, do \`${db.prefix}enable ${CMD.name}\`!`, message) }
                             const disabled = db.disabled
                             disabled.push(CMD.id)
                             firebase.collection('guilds').doc(message.guild.id).update({ disabled: disabled })
-                            bot.done(`Disabled command \`${command}\` for this server.`, message)
-                            return bot.logs(`Disabled command \`${command.toLowerCase()}\` for this server`, message)
+                            bot.done(`Disabled command \`${CMD.name}\` for this server.`, message)
+                            return bot.logs(`Disabled command \`${CMD.name}\` for this server`, message)
                         }      
                 } else {
                     return bot.error(`You can't disable this command!`, message)
