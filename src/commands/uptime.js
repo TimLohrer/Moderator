@@ -1,6 +1,3 @@
-const { time } = require("console")
-const { uptime } = require("process")
-
 module.exports = {
     name: "uptime",
     aliases: ["uptime", "ut", "upt", "online", "utime"],
