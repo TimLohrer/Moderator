@@ -1,3 +1,8 @@
+//ts-check
+//ts-check
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "ban",
     aliases: ["ban", "b"],
@@ -8,7 +13,7 @@ module.exports = {
     minArgs: 1,
     id: 1,
     permissions: ["BAN_MEMBERS"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         let target = message.mentions.users.first()
         if (!target) { return bot.error(`Please make sure to mention a valid user!`, message) }
         if (target.id === message.author.id) { return bot.error(`You can't ban yourself... :thinking:`, message) }

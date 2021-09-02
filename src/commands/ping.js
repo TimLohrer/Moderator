@@ -1,5 +1,8 @@
+//ts-check
 require('discord-reply')
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "ping",
     aliases: ["ping", "p", "latency", "lag"],
@@ -8,7 +11,7 @@ module.exports = {
     usage: " ",
     example: " ",
     id: 9,
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         const msg = await message.lineReply(`Pinging...`)
         msg.delete()
         bot.info(`My ping is \`${msg.createdTimestamp - message.createdTimestamp}ms\`. API latency is \`${bot.ws.ping}ms\`.`, message, 15, "🏓")

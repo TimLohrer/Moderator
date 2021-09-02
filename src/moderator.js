@@ -1,29 +1,12 @@
 require('dotenv').config()
-const { Client, MessageEmbed, Collection } = require('discord.js')
-const bot = new Client()
+const Moderator = require('./utils/Moderator.js')
 const fs = require('fs');
 const admin = require('firebase-admin');
 const dbAccount = require('./data/dbAccount.json');
 admin.initializeApp({ credential: admin.credential.cert(dbAccount) });
 
-bot.get_db = require('./functions/get_db')
-bot.log = require('./functions/log')
-bot.logs = require('./functions/logs')
-bot.send = require('./functions/send')
-bot.reply = require('./functions/reply')
-bot.error = require('./functions/error')
-bot.done = require('./functions/done')
-bot.info = require('./functions/info')
-bot.warn = require('./punishments/warn')
-bot.embed = MessageEmbed
-bot.emoji = require('./data/emojis.json')
-bot.colors = require('./data/colors.json')
-bot.cooldowns = new Map()
-bot.antispam = new Collection()
-bot.events = new Collection()
-bot.commands = new Collection()
-bot.aliases = new Collection()
-bot.devs = ["309712398317649931","638473966029111336"]
+const { Intents } = require('discord.js')
+const bot = new Moderator({ intents: Object.values(Intents.FLAGS) })
 
 console.clear()
 bot.log('Starting...', 'src/moderator.js', 'INFO')

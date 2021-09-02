@@ -1,6 +1,9 @@
+//@ts-check
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "autorole",
     aliases: ["autorole", "arole", "join-role", "joinrole"],
@@ -11,7 +14,7 @@ module.exports = {
     cooldown: 60,
     id: 15,
     permissions: ["MANAGE_GUILD"],
-    async execute(message, args, db, bot, command) {
+    async execute({message, args, db, bot, command}) {
         if (db.autorole === null) {
             let role
             if (!isNaN(parseInt(args[0]))) { role = message.guild.roles.cache.get(args[0]) }

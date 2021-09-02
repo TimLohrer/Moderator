@@ -1,5 +1,8 @@
+//ts-check
 const fs = require('fs')
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "help",
     aliases: ["help", "h"],

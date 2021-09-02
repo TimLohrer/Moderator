@@ -1,6 +1,9 @@
+//ts-check
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "logs",
     aliases: ["logs", "audit-logs", "bot-logs"],
@@ -12,7 +15,7 @@ module.exports = {
     maxArgs: 1,
     id: 7,
     permissions: ["MANAGE_GUILD"],
-    async execute(message, args, db, bot, command) {
+    async execute({message, args, db, bot, command}) {
         if (!args[0] && db.logs === null) {
             const channel = await message.guild.channels.create('logs', {
                 type: 'text',

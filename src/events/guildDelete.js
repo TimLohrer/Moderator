@@ -1,6 +1,5 @@
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
-
 module.exports = {
     name: "guildDelete",
     async execute (guild, bot) {

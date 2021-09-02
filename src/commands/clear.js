@@ -1,3 +1,7 @@
+//ts-check
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "clear",
     aliases: ["clear", "clean", "c"],
@@ -10,7 +14,7 @@ module.exports = {
     maxArgs: 2,
     id: 2,
     permissions: ["MANAGE_MESSAGES"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         let ammount = parseInt(args[0])
         if (ammount === NaN) { return bot.error(`\`${args[0]}\` is not a valid number!`, message) }
         if (ammount > 99) { return bot.error(`The ammount has to be lower than \`99\`!`, message) }

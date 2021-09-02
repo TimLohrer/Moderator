@@ -1,3 +1,7 @@
+//ts-check
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "kick",
     aliases: ["kick", "k", "yeet"],
@@ -8,7 +12,7 @@ module.exports = {
     minArgs: 1,
     id: 6,
     permissions: ["KICK_MEMBERS"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         let target = message.mentions.users.first()
         if (!target) { return bot.error(`Please make sure to mention a valid user!`, message) }
         if (target.id === message.author.id) { return bot.error(`You can't kick yourself... :thinking:`, message) }

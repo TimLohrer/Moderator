@@ -1,5 +1,8 @@
+//ts-check
 const ms = require('ms')
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "tempban",
     aliases: ["tempban", "timeban", "tban", "tb"],
@@ -10,7 +13,7 @@ module.exports = {
     minArgs: 2,
     id: 12,
     permissions: ["BAN_MEMBERS"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         let target = message.mentions.users.first()
         if (!target) { return bot.error(`Please make sure to mention a valid user!`, message) }
         if (target.id === message.author.id) { return bot.error(`You can't ban yourself... :thinking:`, message) }

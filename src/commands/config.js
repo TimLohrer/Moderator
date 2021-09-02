@@ -1,3 +1,7 @@
+//ts-check
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "config",
     aliases: ["config", "botconfig"],
@@ -8,14 +12,20 @@ module.exports = {
     maxArgs: 1,
     id: 3,
     permissions: ["MANAGE_GUILD"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         const embed = new bot.embed()
-        .setTitle('Config')
-        .addField('Prefix:', `\`${db.prefix}\``)
-        if (db.logs) { embed.addField(`Logs:`, `<#${db.logs}>`) } else { embed.addField(`Logs:`, bot.emoji.error) }
-        if (db.membercount) { embed.addField(`Membercount:`, `<#${db.membercount}>`) } else { embed.addField(`Membercount:`, bot.emoji.error) }
-        if (db.premium == true) { embed.addField(`Premium:`, `${bot.emoji.premium} True`) } else { embed.addField(`Premium:`, bot.emoji.error) }
-        embed.setColor("ORANGE")
+        .setTitle('Moderator Config')
+        .setDescription(`\n Hate using commands to change my settings.. ? \n**Try out our new and convenient way to change my settings with *eez*** \n [[Web Dashboard]](${process.env.DASHBOARD})\n\n`)
+        .addFields([
+            { name :'Prefix:', value: `\`${db.prefix}\``, inline: true },
+            { name: 'Logs:', value: `${db.logs !== null ? `<#${db.logs}>` : `${bot.emoji.error} \`Disabled\`` }`, inline: true},
+            { name: 'Membercount:', value: `${db.membercount !== null ? `<#${db.membercount}>` : `${bot.emoji.error} \`Disabled\``}`, inline: true },
+            // { name: '', value: `${}`, inline: true },
+            // { name: '', value: `${}`, inline: true },
+            // { name: '', value: `${}`, inline: true },
+            // { name: '', value: `${}`, inline: true },
+        ])
+        .setColor("ORANGE")
         bot.reply(embed, message)
     }
 }

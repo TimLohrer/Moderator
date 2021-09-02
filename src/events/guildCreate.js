@@ -1,5 +1,4 @@
 const get_db = require('../functions/get_db')
-
 module.exports = {
     name: "guildCreate",
     async execute (guild, bot) {

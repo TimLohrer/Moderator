@@ -1,14 +1,17 @@
+//ts-check
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
 const fs = require('fs');
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "dev",
     category: "dev",
     description: " ",
     usage: " ",
     example: " ",
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         if (!bot.devs.includes(message.member.id)) { return; }
         async function consl (msg, path, type, tag) {
             const types = ["SUCCESS", "WARNING", "ERROR", "INFO"]

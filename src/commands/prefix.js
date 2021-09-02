@@ -1,6 +1,9 @@
+//ts-check
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "prefix",
     aliases: ["prefix", "setPrefix", "botPrefix"],
@@ -13,7 +16,7 @@ module.exports = {
     maxArgs: 1,
     id: 10,
     permissions: ["MANAGE_GUILD"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         const newPrefix = args[0].toString()
         if (newPrefix.length > 5) { return bot.error(`This maximum length is \`5\`!`, message) }
         await firebase.collection('guilds').doc(message.guild.id).update({ prefix: newPrefix })

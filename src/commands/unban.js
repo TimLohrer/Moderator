@@ -1,3 +1,7 @@
+//ts-check
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "unban",
     aliases: ["unban", "uban", "ub"],
@@ -8,7 +12,7 @@ module.exports = {
     minArgs: 1,
     id: 13,
     permissions: ["BAN_MEMBERS"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         const id = args[0]
         if (parseInt(id) === NaN) { return bot.error(`Please provide a valid ID!`, message) }
         if (message.guild.members.cache.get(id)) { return bot.error(`This user is not banned from this server!`, message) }

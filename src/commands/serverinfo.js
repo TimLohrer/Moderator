@@ -1,3 +1,7 @@
+//ts-check
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "serverinfo",
     aliases: ["serverinfo", "sinfo", "si", "serveri"],
@@ -6,7 +10,7 @@ module.exports = {
     usage: " ",
     example: " ",
     id: 11,
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         const { guild } = message
         const embed = new bot.embed()
         embed.setTitle(`Serverinfo`)

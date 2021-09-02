@@ -2,7 +2,6 @@ const { MessageEmbed } = require('discord.js')
 const { red } = require('../data/colors.json')
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
-
 module.exports = {
     name: "guildMemberAdd",
     async execute(member, bot) {

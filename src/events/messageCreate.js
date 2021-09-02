@@ -4,7 +4,6 @@ const fs = require('fs')
 const antispam = require('../features/antispam')
 const get_db = require('../functions/get_db')
 const { Collection } = require('discord.js')
-
 module.exports = {
     name: "message",
     async execute (message, bot) {
@@ -18,7 +17,7 @@ module.exports = {
         if (message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
             if (!message.content.startsWith(db.prefix) && !args[1]) {
                 if (bot.commands.has('help')) {
-                    bot.commands.get('help').execute(message, args, db, bot)
+                    bot.commands.get('help').execute({message, args, db, bot})
                 } else {
                     return bot.error(`This command is currently disabled globaly due to maintenance... Try again in \`5min\`!`, message)
                 }
@@ -67,6 +66,6 @@ module.exports = {
         if (cmd.minArgs) { if (args.length < cmd.minArgs) { return bot.error(`This command requires a minimum of \`${cmd.minArgs}\` arguments!`, message)}}
         if (cmd.maxArgs) { if (args.length > cmd.maxArgs) { return bot.error(`This command only allows a maximum of \`${cmd.maxArgs}\` arguments!`, message)}}
 
-        try { cmd.execute(message, args, db, bot, command) } catch (e) { bot.log(`An error accured while executing this command!`, `src/commands/${cmd.name}.js`, `ERROR`); bot.error(`An error accured while executing this command!\nPlease report this immediately! [[Report]](https://discord.gg/bjMSsVzjve)`, message)}
+        try { cmd.execute({message, args, db, bot, command}) } catch (e) { bot.log(`An error accured while executing this command!`, `src/commands/${cmd.name}.js`, `ERROR`); bot.error(`An error accured while executing this command!\nPlease report this immediately! [[Report]](https://discord.gg/bjMSsVzjve)`, message)}
     }
 }

@@ -1,7 +1,10 @@
+//ts-check
 const admin = require('firebase-admin');
 const firebase = admin.firestore();
 const fs = require('fs')
-
+/**
+ * @type {import('../utils/types').Command}
+ */
 module.exports = {
     name: "enable",
     aliases: ["enable", "activate"],
@@ -14,7 +17,7 @@ module.exports = {
     minArgs: 1,
     maxArgs: 1,
     permissions: ["ADMINISTRATOR", "MANAGE_GUILD"],
-    async execute(message, args, db, bot) {
+    async execute({message, args, db, bot}) {
         const command = args[0]
         const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
         if (command.toLowerCase() !== 'dev' && bot.commands.has(command) || bot.aliases.has(command)) {
