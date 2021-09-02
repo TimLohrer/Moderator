@@ -19,7 +19,7 @@ for (const file of eventFiles) {
     if (!event.name) { return bot.log(`Missing event name!`, `src/events/${file}`, `ERROR`) } else {
 	    bot.events.set(event.name, event);
         bot.log(`Loaded event ${event.name}`, `src/events/${file}`, 'SUCCESS')
-        bot.on(event.name, (...args) => { event.execute(...args, bot) })
+        bot.on(event.name, (...args) => { event.execute(...args, bot, "RESTART") })
     }
 }
 console.log(" ");
@@ -40,7 +40,7 @@ for (const file of commandFiles) {
     else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${file}`, `ERROR`) } else {
 	    bot.commands.set(cmd.name, cmd);
-        if (cmd.aliases && cmd.aliases !== []) { for (alias of cmd.aliases) { bot.aliases.set(alias, cmd) } }
+        if (cmd.aliases && cmd.aliases !== []) { for (let alias of cmd.aliases) { bot.aliases.set(alias, cmd) } }
         bot.log(`Loaded command ${cmd.name}`, `src/commands/${file}`, 'SUCCESS')
     }
 }

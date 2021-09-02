@@ -12,12 +12,12 @@ module.exports = {
     example: "prefix",
     maxArgs: 1,
     id: 5,
-    async execute (message, RAWargs, db, bot) {
+    async execute ({message, args, db, bot}) {
         let lowArgs = []
-        let args = []
-        for (let i = 0; i < RAWargs.length; i++) {
-            args.push(RAWargs[i].toUpperCase())
-            lowArgs.push(RAWargs[i].toLowerCase())
+        let _args = []
+        for (let i = 0; i < args.length; i++) {
+            _args.push(args[i].toUpperCase())
+            lowArgs.push(args[i].toLowerCase())
         }
         if (lowArgs[0] === "dev") { return bot.error(`Could not find a command or category by the name of \`dev\`!`, message) }
         
@@ -45,7 +45,7 @@ module.exports = {
                 }
             }
         }
-        if (!args[0] || message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
+        if (!_args[0] || message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
             let cmds = ""
             let ctgrys = ""
             for (let cmd of commands) { if (cmd.name) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\`` }}
@@ -56,9 +56,9 @@ module.exports = {
             .setColor("ORANGE")
             .setFooter(`Please ignore {} and <> when using a command!`)
             bot.info('Check your DM\'s!', message, 10, "📬")
-            try { return bot.send(embed, message.author) } catch (e) { console.log(e) }
+            try { return bot.send({ embeds: [embed]}, message.author) } catch (e) { console.log(e) }
         }
-        if (args[0]) {
+        if (_args[0]) {
             if (bot.commands.has(lowArgs[0]) || bot.aliases.has(lowArgs[0]) || commandFiles.includes(`${lowArgs[0]}.js`)) {
                 const cmd = bot.commands.get(lowArgs[0]) || bot.aliases.get(lowArgs[0]) || lowArgs[0]
                 let perms = ""
@@ -76,31 +76,31 @@ module.exports = {
                 }
                 embed.setColor("ORANGE")
                 embed.setFooter(`Please ignore {} and <> when using this command!`)
-                return bot.reply(embed, message, 60)
+                return bot.reply({embeds:[embed]}, message, 60)
             }
-            else if (categorys.includes(args[0])) {
+            else if (categorys.includes(_args[0])) {
                 let i = 1
                 let cmds = ""
                 for (let cmd of commands) {
                     if (bot.commands.has(cmd.name)) {
-                        if (cmd.category && cmd.category.toUpperCase() === args[0]) {
+                        if (cmd.category && cmd.category.toUpperCase() === _args[0]) {
                             cmds += `\n\n${i}. \`${db.prefix}${cmd.name}\``; i++ 
                         }
                     } else {
                         const command = require(`./${cmd.split('|')[0]}.js`)
-                        if (command.category && command.category.toUpperCase() === args[0]) {
+                        if (command.category && command.category.toUpperCase() === _args[0]) {
                             cmds += `\n\n ${i}. \`${db.prefix}${command.name}\`   (Currently disabled!)`
                             i++
                         }
                     }
                 }
                 const embed = new bot.embed()
-                .setTitle(`Commands of category ${args[0]}`)
+                .setTitle(`Commands of category ${_args[0]}`)
                 .setDescription(cmds)
                 .setColor("BLUE")
-                return bot.reply(embed, message, 60)
+                return bot.reply({embeds:[embed]}, message, 60)
             }
-            return bot.error(`Could not find a command or category by the name of \`${RAWargs[0]}\`!`, message)
+            return bot.error(`Could not find a command or category by the name of \`${args[0]}\`!`, message)
         }
     }
 }

@@ -29,7 +29,7 @@ module.exports = async function warn(target, reason = "No reason provided.", mes
                 const embed = new bot.embed()
                 .setTitle(`Banned ${target.user.tag}`)
                 .setDescription(`<@${target.id}> was banned from this server because he reached \`3\` warns! \n\n\`Warn 1:\`\n\`\`\`Reason: ${db.first.reason}\`\`\` \n\`\`\`By: ${db.first.mod}\`\`\`\n\n\`Warn 2:\`\n\`\`\`Reason: ${db.first.reason}\`\`\` \n\`\`\`By: ${db.first.mod}\`\`\`\n\n\`Warn 3:\`\n\`\`\`Reason: ${db.first.reason}\`\`\` \n\`\`\`By: ${db.first.mod}\`\`\``)
-                message.guild.channels.cache.get(database.logs.split('‎')[0]).send(embed)
+                message.guild.channels.cache.get(database.logs.split('‎')[0]).send({embeds: [embed]})
             }
             if (!target.bot && !target.permissions.has('ADMINISTRATOR')) { await target.send(`You have been banned from the **${message.guild.name}** server, because you reached \`3\` warns!`) }
             await target.ban({ days: 7, reason: 'Reaching 3 warns.' })

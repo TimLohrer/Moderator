@@ -17,6 +17,7 @@ module.exports = {
     async execute({message, args, db, bot}) {
         let ammount = parseInt(args[0])
         if (ammount === NaN) { return bot.error(`\`${args[0]}\` is not a valid number!`, message) }
+        if (ammount < 1) { return bot.error(`The ammount has to be higher than \`0\`!`, message) }
         if (ammount > 99) { return bot.error(`The ammount has to be lower than \`99\`!`, message) }
         let channel
         if (args[1] && message.mentions.channels.first()) {

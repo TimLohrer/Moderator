@@ -16,7 +16,7 @@ module.exports = {
         const id = args[0]
         if (parseInt(id) === NaN) { return bot.error(`Please provide a valid ID!`, message) }
         if (message.guild.members.cache.get(id)) { return bot.error(`This user is not banned from this server!`, message) }
-        const bans = await message.guild.fetchBans()
+        const bans = await message.guild.bans.fetch()
         if(bans.size === 0) { return bot.error(`No one is banned from this server!`, message) }
         const Buser = bans.get(id)
         if(!Buser) { return bot.error(`Could not find that user!`, message) }

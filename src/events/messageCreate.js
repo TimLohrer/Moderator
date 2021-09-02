@@ -5,12 +5,12 @@ const antispam = require('../features/antispam')
 const get_db = require('../functions/get_db')
 const { Collection } = require('discord.js')
 module.exports = {
-    name: "message",
+    name: "messageCreate",
     async execute (message, bot) {
         if (message.author.bot) { return; }
         if (message.channel.type === 'dm') { try { return bot.error(`Please only use my commands in server's!`, message, -1) } catch (e) { console.log(e) } }
         let db = await get_db(message.guild)
-        if (message.guild.ownerID !== db.owner) { await firebase.collection('guilds').doc(message.guild.id).update({ owner: message.guild.ownerID }) }
+        if (message.guild.ownerID !== db.owner) { await firebase.collection('guilds').doc(message.guild.id).update({ owner: message.guild.ownerId }) }
         // if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }
         const args = message.content.slice(db.prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();

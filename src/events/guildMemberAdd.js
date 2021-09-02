@@ -15,7 +15,7 @@ module.exports = {
             .setDescription(`New member: <@${member.user.id}>`)
             .setTimestamp()
             const channel = member.guild.channels.cache.get(db.logs.split('‎')[0])
-            channel.send(embed)
+            channel.send({embeds: [embed]})
         }
         if (db.welcome.channel !== null) {
             if (db.welcome.ifembed === true) {
@@ -52,7 +52,7 @@ module.exports = {
                 if (Embed.description !== null) { embed.setDescription(description) }
                 if(Embed.footer !== null) { embed.setFooter(footer) }
                 embed.setColor(Embed.color)
-                member.guild.channels.cache.get(db.welcome.channel).send(embed)
+                member.guild.channels.cache.get(db.welcome.channel).send({embeds: [embed]})
             } else if (db.welcome.ifembed === false && db.welcome.msg) {
                 let msg = db.welcome.msg
                 for (let i = 0; i < msg.split(' ').length; i++){
@@ -81,7 +81,7 @@ module.exports = {
                     .setColor(red)
                     .setTimestamp()
                     const channel = member.guild.channels.cache.get(db.logs) || member.guild.owner
-                    return channel.send(embed)
+                    return channel.send({embeds: [embed]})
                 } else {
                     member.roles.add(member.guild.roles.cache.get(db.autorole).id)
                 }
@@ -93,7 +93,7 @@ module.exports = {
                 .setColor(red)
                 .setTimestamp()
                 const channel = member.guild.channels.cache.get(db.logs) || member.guild.owner
-                return channel.send(embed)
+                return channel.send({embeds: [embed]})
             }
         }
     }

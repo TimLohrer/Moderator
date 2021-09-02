@@ -18,7 +18,7 @@ module.exports = {
     async execute({message, args, db, bot, command}) {
         if (!args[0] && db.membercount === null) {
             const channel = await message.guild.channels.create(`👥 Member Count: ${message.guild.memberCount}`, {
-                type: 'voice',
+                type: 'GUILD_VOICE',
                 permissionOverwrites: [{ id: message.guild.roles.everyone.id, deny: ['CONNECT'] },],
             })
             await firebase.collection('guilds').doc(message.guild.id).update({ membercount: channel.id })

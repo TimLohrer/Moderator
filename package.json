@@ -1,17 +1,15 @@
 {
   "dependencies": {
-    "discord-reply": "^0.1.2",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "firebase-admin": "^9.10.0",
-    "fs": "^0.0.1-security",
-    "nodemon": "^2.0.12"
+    "fs": "^0.0.1-security"
   },
   "name": "mod",
   "version": "1.0.0",
   "main": "./src/moderator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ."
   },
   "keywords": [],
   "author": "",

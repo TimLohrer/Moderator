@@ -25,7 +25,7 @@ module.exports = {
             .setColor(color)
             .setTimestamp()
             .setFooter(`By ${tag}`)
-            const message = await channel.send(embed)
+            const message = await channel.send({embeds: [embed]})
             if (LowType === 'warning' || LowType === 'error') { setTimeout(() => { if(message.deleted === false) { message.delete() }}, 60 * 1000)}
         }
         setTimeout(() => { message.delete() }, 5 * 1000)

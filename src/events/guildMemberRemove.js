@@ -11,7 +11,7 @@ module.exports = {
             .setDescription(`A member left: \`${member.user.tag}\``)
             .setTimestamp()
             const channel = member.guild.channels.cache.get(db.logs.split('‎')[0])
-            channel.send(embed)
+            channel.send({embeds: [embed]})
         }
     }
 }

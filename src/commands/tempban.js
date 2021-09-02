@@ -25,15 +25,10 @@ module.exports = {
         if (!reason) { reason = 'No reason provided!' }
         await target.ban({days: 7, reason: reason})
         bot.done(`Temporarily banned <@${target.id}> for \`${time}\` because of \`${reason}\`!`, message)
-        let embed = new bot.embed()
-        .setDescription(`Temporarily banned <@${target.id}> (${target.id}) for \`${time}\` because of \`${reason}\`!`)
-        .setFooter(`Executed by ${message.author.tag}`)
-        .setTimestamp()
-        let channel = message.guild.channels.cache.get(db.logs)
-        const msg = await channel.send(embed)
+        const msg = await bot.logs(`Temporarily banned <@${target.id}> (${target.id}) for \`${time}\` because of \`${reason}\`!`, message)
 
         setTimeout(async function () {
-            const bans = await message.guild.fetchBans()
+            const bans = await message.guild.bans.fetch()
             if(bans.size === 0) { return; }
             const Buser = bans.get(target.id)
             if(!Buser) { return; }
@@ -44,7 +39,7 @@ module.exports = {
             .setTimestamp()
             const _db = await bot.get_db(message.guild)
             channel = message.guild.channels.cache.get(_db.logs)
-            channel.send(embed)
+            channel.send({embeds: [embed]})
         }, ms(time));
     }
 }

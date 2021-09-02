@@ -9,7 +9,7 @@ module.exports = async function error(err, msg, dur = 10) {
     .setTitle('Error')
     .setDescription(`${emoji.error} ${err}`)
     .setColor(red)
-    const message = await msg.lineReply(embed)
+    const reply = await msg.reply({embeds: [embed]})
     if (dur < 1) { return; }
-    setTimeout(() => { if(msg.deleted === false) { msg.delete() } if(message.deleted === false) { message.delete() } }, dur * 1000)
+    setTimeout(() => { msg.deletable === true ? msg.delete() : null; reply.deletable === true ? reply.delete() : null }, dur * 1000)
 }

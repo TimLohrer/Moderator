@@ -16,22 +16,17 @@ module.exports = {
             },
             {
                 name: '🕵️‍♂️ Owner',
-                value: `${guild.owner.user.tag}`,
+                value: `${guild.members.cache.get(guild.ownerId).user.tag}`,
                 inline: true
             },
             {
                 name: '📊 Members',
                 value: `${guild.memberCount}`,
                 inline: true
-            },
-            {
-                name: '🌎 Region',
-                value: `${guild.region}`,
-                inline: true
             }
         )
         .setTimestamp()
         .setColor(bot.colors.red)
-        bot.guilds.cache.get(process.env.GUILD_ID).channels.cache.get(process.env.GUILDS_ID).send(embed)
+        bot.guilds.cache.get(process.env.GUILD_ID).channels.cache.get(process.env.GUILDS_ID).send({embeds: [embed]})
     }
 }

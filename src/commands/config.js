@@ -26,6 +26,6 @@ module.exports = {
             // { name: '', value: `${}`, inline: true },
         ])
         .setColor("ORANGE")
-        bot.reply(embed, message)
+        bot.reply({embeds: [embed]}, message)
     }
 }
