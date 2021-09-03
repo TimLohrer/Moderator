@@ -12,12 +12,7 @@ module.exports = {
     cooldown: 30,
     id: 4,
     async execute({message, args, db, bot}) {
-        let time
-        let uptime = 6120000//bot.uptime
-        if (uptime <= 60 * 1000) { time =  `\`${(uptime / 1000).toFixed(0)} sec\``}
-        else if (uptime >= 60 * 1000 && uptime <= 60 * 1000 * 60) { time = `\`${(uptime / 1000 / 60).toFixed(1)} min\`` }
-        else if (uptime >= 60 * 1000 * 60 && uptime <= 60 * 1000 * 60 * 24) { time = `\`${(uptime / 1000 / 60 / 60).toFixed(0)} h\` and \`${(uptime / 1000 / 60).toFixed(0)} min\`` }
-        else if (uptime >= 60 * 1000 * 60 * 24 && uptime <= 60 * 1000 * 60 * 24 * 365) { time = `\`${(uptime / 1000 / 60 / 60 / 24).toFixed(0)} days\` \`${(uptime / 1000 / 60 / 60).toFixed(0)} h and \`${(uptime / 1000 / 60)} min\`` } 
-        return bot.info(`I am now online since ${time}!`, message, 30)
+        const time = bot.ms(bot.uptime)
+        return bot.info(`I am now online since \`${time}\`!`, message, 30)
     }
 }

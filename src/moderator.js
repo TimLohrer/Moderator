@@ -45,4 +45,6 @@ for (const file of commandFiles) {
     }
 }
 
-bot.login(process.env.TOKEN)
+bot.login("ODI0OTE3OTM5OTg3ODA4Mjk1.YF2Wsw.5YFwHg88rGa2I1_lhnI0oO0KiXo")
+
+module.exports = bot;

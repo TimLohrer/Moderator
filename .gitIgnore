@@ -1,5 +1,6 @@
 #folders
 node_modules
+src/dashboard/node_modules
 
 #files
 src/data/dbAccount.json

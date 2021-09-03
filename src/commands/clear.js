@@ -4,7 +4,7 @@
  */
 module.exports = {
     name: "clear",
-    aliases: ["clear", "clean", "c"],
+    aliases: ["clear", "clean", "c", "purge"],
     category: "UTILITY",
     description: "Clears a specific ammount of messages in a channel.",
     usage: "{ammount} {channel}",
@@ -20,15 +20,19 @@ module.exports = {
         if (ammount < 1) { return bot.error(`The ammount has to be higher than \`0\`!`, message) }
         if (ammount > 99) { return bot.error(`The ammount has to be lower than \`99\`!`, message) }
         let channel
-        if (args[1] && message.mentions.channels.first()) {
-            channel = message.mentions.channels.first()
-            try { await channel.bulkDelete(ammount, false).then(bot.done(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message, 5)) } catch { return bot.error(`You can only delete messages from the past 14 days!`, message) }
-            bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
-        } else {
-            channel = message.channel
-            ammount++
-            try { await channel.bulkDelete(ammount, false).then(bot.done(`Deleted \`${ammount -= 1}\` messages.`, message, 5)) } catch { return bot.error(`You can only delete messages from the past 14 days!`, message) }
-            bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
+        try {
+                if (args[1] && message.mentions.channels.first()) {
+                channel = message.mentions.channels.first()
+                try { await channel.bulkDelete(ammount, false).then(bot.done(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message, 5)) } catch { return bot.error(`You can only delete messages from the past 14 days!`, message) }
+                bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
+            } else {
+                channel = message.channel
+                ammount++
+                try { await channel.bulkDelete(ammount, false).then(bot.done(`Deleted \`${ammount -= 1}\` messages.`, message, 5)) } catch { return bot.error(`You can only delete messages from the past 14 days!`, message) }
+                bot.logs(`Deleted \`${ammount}\` messages in <#${channel.id}>.`, message)
+            }
+        } catch (e) {
+            console.log(e)
         }
     }
 }
