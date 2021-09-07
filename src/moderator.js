@@ -8,6 +8,8 @@ admin.initializeApp({ credential: admin.credential.cert(dbAccount) });
 const { Intents } = require('discord.js')
 const bot = new Moderator({ intents: Object.values(Intents.FLAGS) })
 
+module.exports = bot;
+
 console.clear()
 bot.log('Starting...', 'src/moderator.js', 'INFO')
 bot.log('Connected to Database', 'src/moderator.js', 'SUCCESS')
@@ -46,5 +48,3 @@ for (const file of commandFiles) {
 }
 
 bot.login(process.env.TOKEN)
-
-module.exports = bot;

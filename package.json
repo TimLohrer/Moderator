@@ -1,22 +1,18 @@
 {
   "dependencies": {
-    "cookie-parser": "^1.4.5",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
     "firebase-admin": "^9.11.1",
-    "fs": "^0.0.1-security",
-    "node-fetch": "^3.0.0",
-    "path": "^0.12.7"
+    "fs": "^0.0.1-security"
   },
-  "name": "mod",
+  "name": "moderator",
   "version": "1.0.0",
   "main": "./src/moderator.js",
   "scripts": {
     "dev": "nodemon ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Aim_shock#7236",
   "license": "ISC",
   "description": ""
 }

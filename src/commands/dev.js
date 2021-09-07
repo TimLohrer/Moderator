@@ -164,7 +164,7 @@ module.exports = {
         if (command.toLowerCase() === 'restart') {
             bot.destroy()
             const ready = require('../events/ready')
-            ready(bot, "RESTART")
+            ready(bot)
             bot.login(process.env.TOKEN)
             consl('Restarting...', 'src/commands/dev.js', 'SUCCESS', message.author.tag)
             return message.react('✅')
