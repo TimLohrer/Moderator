@@ -1,3 +1,5 @@
+https://img.shields.io/badge/%20-javascript-yellow
+
 # Moderator
  **[Moderator](https://top.gg/bot/820652183045144606)** is the *perfect* moderation Bot for *every* Discord server.
 
