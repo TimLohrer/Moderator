@@ -11,14 +11,13 @@ module.exports = {
     category: "UTILITY",
     description: "Disables a command for your server.",
     usage: "{command}",
-    example: "ping",
+    example: "config",
     cooldown: 60,
-    id: 16,
     minArgs: 1,
     maxArgs: 1,
     permissions: ["ADMINISTRATOR", "MANAGE_GUILD"],
     async execute({message, args, db, bot}) {
-        const ALWAYS_ON = ["dev", "help", "enable", "disable"]
+        const ALWAYS_ON = ["dev", "help", "enable", "disable", "invite", "dashboard", "ping", "uptime"]
         const command = args[0]
         const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
         if (command.toLowerCase() !== 'dev' && bot.commands.has(command) || bot.aliases.has(command)) {
@@ -26,9 +25,9 @@ module.exports = {
             for (let cmd of commandFiles) {
                 if(!ALWAYS_ON.includes(CMD.name)) {
                         if (CMD.name === command.toLowerCase() || CMD.aliases.includes(command.toLowerCase())) {
-                            if (db.disabled.includes(CMD.id)) { return bot.error(`The command \`${CMD.name}\` is **already disabled** for this server. If you want to **enable** it again, do \`${db.prefix}enable ${CMD.name}\`!`, message) }
+                            if (db.disabled.includes(CMD.name.toLowerCase())) { return bot.error(`The command \`${CMD.name}\` is **already disabled** for this server. If you want to **enable** it again, do \`${db.prefix}enable ${CMD.name}\`!`, message) }
                             const disabled = db.disabled
-                            disabled.push(CMD.id)
+                            disabled.push(CMD.name.toLowerCase())
                             firebase.collection('guilds').doc(message.guild.id).update({ disabled: disabled })
                             bot.done(`Disabled command \`${CMD.name}\` for this server.`, message)
                             return bot.logs(`Disabled command \`${CMD.name}\` for this server`, message)

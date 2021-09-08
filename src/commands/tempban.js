@@ -11,7 +11,6 @@ module.exports = {
     usage: "<user> {time (sec/min/h/d)} {reason}",
     example: "@{user} 5h being to epic",
     minArgs: 2,
-    id: 12,
     permissions: ["BAN_MEMBERS"],
     async execute({message, args, db, bot}) {
         let target = message.mentions.users.first()

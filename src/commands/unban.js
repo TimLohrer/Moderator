@@ -10,7 +10,6 @@ module.exports = {
     usage: "<user ID> {reason}",
     example: "697888642290679940 false ban",
     minArgs: 1,
-    id: 13,
     permissions: ["BAN_MEMBERS"],
     async execute({message, args, db, bot}) {
         const id = args[0]

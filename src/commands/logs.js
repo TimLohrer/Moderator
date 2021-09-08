@@ -13,7 +13,6 @@ module.exports = {
     example: "#logs",
     cooldown: 60,
     maxArgs: 1,
-    id: 7,
     permissions: ["MANAGE_GUILD"],
     async execute({message, args, db, bot, command}) {
         if (!args[0] && db.logs === null) {

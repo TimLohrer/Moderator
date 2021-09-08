@@ -6,4 +6,3 @@ src/dashboard/node_modules
 src/data/dbAccount.json
 .env
 package-lock.json
-start.bat

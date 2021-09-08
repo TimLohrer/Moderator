@@ -14,7 +14,6 @@ module.exports = {
     cooldown: 60,
     minArgs: 1,
     maxArgs: 1,
-    id: 10,
     permissions: ["MANAGE_GUILD"],
     async execute({message, args, db, bot}) {
         const newPrefix = args[0].toString()

@@ -10,7 +10,6 @@ module.exports = {
     usage: " ",
     example: " ",
     maxArgs: 1,
-    id: 3,
     permissions: ["MANAGE_GUILD"],
     async execute({message, args, db, bot}) {
         const embed = new bot.embed()

@@ -12,7 +12,6 @@ module.exports = {
     cooldown: 10,
     minArgs: 1,
     maxArgs: 2,
-    id: 2,
     permissions: ["MANAGE_MESSAGES"],
     async execute({message, args, db, bot}) {
         let ammount = parseInt(args[0])

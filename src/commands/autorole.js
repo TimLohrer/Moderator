@@ -12,7 +12,6 @@ module.exports = {
     usage: "<@role / role name / role-ID / none>",
     example: "@member",
     cooldown: 60,
-    id: 15,
     permissions: ["MANAGE_GUILD"],
     async execute({message, args, db, bot, command}) {
         if (db.autorole === null) {

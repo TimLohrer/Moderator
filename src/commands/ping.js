@@ -5,14 +5,13 @@
 module.exports = {
     name: "ping",
     aliases: ["ping", "p", "latency", "lag"],
-    category: "MISC",
+    category: "INFO",
     description: "Tells you the latency of the bot and the Discord API latency.",
     usage: " ",
     example: " ",
-    id: 9,
     async execute({message, args, db, bot}) {
         const msg = await message.reply(`Pinging...`)
         msg.delete()
-        return bot.info(`My ping is \`${msg.createdTimestamp - message.createdTimestamp}ms\`. API latency is \`${bot.ws.ping}ms\`.`, message, 15, "🏓")
+        return bot.info(`My ping is \`${msg.createdTimestamp - message.createdTimestamp}ms\`. API latency is \`${bot.ws.ping}ms\`.`, message, true, 15, "🏓")
     }
 }

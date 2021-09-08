@@ -10,7 +10,6 @@ module.exports = {}
  * @property {string} usage
  * @property {string} example
  * @property {number} cooldown
- * @property {number} id
  * @property {number} minArgs
  * @property {number} maxArgs
  * @property {import('discord.js').PermissionString[]} permissions

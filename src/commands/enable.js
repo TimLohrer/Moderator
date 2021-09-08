@@ -11,9 +11,8 @@ module.exports = {
     category: "UTILITY",
     description: "Enables a command for your server.",
     usage: "{command}",
-    example: "ping",
+    example: "config",
     cooldown: 60,
-    id: 17,
     minArgs: 1,
     maxArgs: 1,
     permissions: ["ADMINISTRATOR", "MANAGE_GUILD"],
@@ -24,9 +23,9 @@ module.exports = {
             for (let cmd of commandFiles) {
                 cmd = bot.commands.get(command) || bot.aliases.get(command)
                 if (cmd.name === command.toLowerCase() || cmd.aliases.includes(command.toLowerCase())) {
-                    if (!db.disabled.includes(cmd.id)) { return bot.error(`The command \`${cmd.name}\` is **already enabled** for this server. If you want to **disable** it, do \`${db.prefix}disable ${cmd.name}\`!`, message) }
+                    if (!db.disabled.includes(cmd.name.toLowerCase())) { return bot.error(`The command \`${cmd.name}\` is **already enabled** for this server. If you want to **disable** it, do \`${db.prefix}disable ${cmd.name}\`!`, message) }
                     const disabled = db.disabled
-                    if (disabled.indexOf(cmd.id) > -1) { disabled.splice(disabled.indexOf(cmd.id), 1) }
+                    if (disabled.indexOf(cmd.name.toLowerCase()) > -1) { disabled.splice(disabled.indexOf(cmd.name.toLowerCase()), 1) }
                     firebase.collection('guilds').doc(message.guild.id).update({ disabled: disabled })
                     bot.done(`Enabled command \`${cmd.name}\` for this server.`, message)
                     return bot.logs(`Enabled command \`${cmd.name}\` for this server`, message)

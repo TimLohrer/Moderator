@@ -10,7 +10,6 @@ module.exports = {
     usage: "<user> {reason}",
     example: "@{user} being too cool",
     minArgs: 1,
-    id: 6,
     permissions: ["KICK_MEMBERS"],
     async execute({message, args, db, bot}) {
         let target = message.mentions.users.first()

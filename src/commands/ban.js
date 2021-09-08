@@ -11,7 +11,6 @@ module.exports = {
     usage: "ban <user> {reason}",
     example: `ban @{user} being anoying`,
     minArgs: 1,
-    id: 1,
     permissions: ["BAN_MEMBERS"],
     async execute({message, args, db, bot}) {
         let target = message.mentions.users.first()

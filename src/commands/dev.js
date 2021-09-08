@@ -45,7 +45,6 @@ module.exports = {
                     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
-                    else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
                     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) } else {
                         bot.commands.set(cmd.name, cmd);
                         if (cmd.aliases && cmd.aliases !== []) { for (let i = 0; i < cmd.aliases.length; i++) { bot.aliases.set(cmd.aliases[i], cmd)}}
@@ -79,7 +78,6 @@ module.exports = {
                             else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                             else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                             else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
-                            else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
                             else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) } else {
                                 bot.commands.delete(cmd.name, cmd);
                                 if (cmd.aliases && cmd.aliases !== []) { for (let i = 0; i < cmd.aliases.length; i++) { bot.aliases.delete(cmd.aliases[i], cmd)}}
@@ -104,7 +102,6 @@ module.exports = {
                     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command description!`, `ERROR`, `src/commands/${cmd.name}.js`, message.author.tag) }
                     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command usage!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
                     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command example!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) }
-                    else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
                     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`); consl(`Missing command execute!`, `src/commands/${cmd.name}.js`, `ERROR`, message.author.tag) } else {
                         bot.commands.delete(cmd.name, cmd);
                         if (cmd.aliases && cmd.aliases !== []) { for (let i = 0; i < cmd.aliases.length; i++) { bot.aliases.delete(cmd.aliases[i], cmd)}}

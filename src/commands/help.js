@@ -11,7 +11,6 @@ module.exports = {
     usage: "{command / category}",
     example: "prefix",
     maxArgs: 1,
-    id: 5,
     async execute ({message, args, db, bot}) {
         let lowArgs = []
         let _args = []
@@ -55,7 +54,7 @@ module.exports = {
             .setDescription(`My Prefix for this server is \`${db.prefix}\`. \nDo \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
             .setColor("ORANGE")
             .setFooter(`Please ignore {} and <> when using a command!`)
-            bot.info('Check your DM\'s!', message, 10, "📬")
+            bot.info('Check your DM\'s!', message, 10, false, "📬")
             try { return bot.send({ embeds: [embed]}, message.author) } catch (e) { console.log(e) }
         }
         if (_args[0]) {

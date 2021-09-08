@@ -9,7 +9,6 @@ module.exports = {
     description: "Shows usefull information about this server.",
     usage: " ",
     example: " ",
-    id: 11,
     async execute({message, args, db, bot}) {
         const { guild } = message
         const embed = new bot.embed()

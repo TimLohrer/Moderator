@@ -5,16 +5,20 @@ const admin = require('firebase-admin');
 const dbAccount = require('./data/dbAccount.json');
 admin.initializeApp({ credential: admin.credential.cert(dbAccount) });
 
-const { Intents } = require('discord.js')
+const { Intents } = require('discord.js');
 const bot = new Moderator({ intents: Object.values(Intents.FLAGS) })
-
-module.exports = bot;
 
 console.clear()
 bot.log('Starting...', 'src/moderator.js', 'INFO')
 bot.log('Connected to Database', 'src/moderator.js', 'SUCCESS')
-console.log(" ");
 
+console.log(" ");
+const functionFiles = fs.readdirSync('./src/functions').filter(file => file.endsWith('.js'));
+for (const file of functionFiles) {
+    bot.log(`Loaded function ${file.split('.')[0]}`, `src/functions/${file}`, 'SUCCESS')
+}
+
+console.log(" ");
 const eventFiles = fs.readdirSync('./src/events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
@@ -23,11 +27,6 @@ for (const file of eventFiles) {
         bot.log(`Loaded event ${event.name}`, `src/events/${file}`, 'SUCCESS')
         bot.on(event.name, (...args) => { event.execute(...args, bot, "RESTART") })
     }
-}
-console.log(" ");
-const functionFiles = fs.readdirSync('./src/functions').filter(file => file.endsWith('.js'));
-for (const file of functionFiles) {
-    bot.log(`Loaded function ${file.split('.')[0]}`, `src/functions/${file}`, 'SUCCESS')
 }
 
 console.log(" ");
@@ -39,12 +38,19 @@ for (const file of commandFiles) {
     else if (!cmd.description) { bot.log(`Missing command description!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.usage) { bot.log(`Missing command usage!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.example) { bot.log(`Missing command example!`, `src/commands/${file}`, `ERROR`) }
-    else if (!cmd.id && cmd.name !== 'dev') { bot.log(`Missing command id!`, `src/commands/${file}`, `ERROR`) }
     else if (!cmd.execute) { bot.log(`Missing command execute!`, `src/commands/${file}`, `ERROR`) } else {
 	    bot.commands.set(cmd.name, cmd);
         if (cmd.aliases && cmd.aliases !== []) { for (let alias of cmd.aliases) { bot.aliases.set(alias, cmd) } }
         bot.log(`Loaded command ${cmd.name}`, `src/commands/${file}`, 'SUCCESS')
     }
 }
+
+console.log(" ")
+bot.log(`Finished loading ${functionFiles.length} functions`, `src/moderator.js`, 'INFO')
+console.log(" ")
+bot.log(`Finished loading ${bot.events.size} events`, `src/moderator.js`, 'INFO')
+console.log(" ")
+bot.log(`Finished loading ${bot.commands.size} commands with their corresponding ID`, `src/moderator.js`, 'INFO')
+
 
 bot.login(process.env.TOKEN)
