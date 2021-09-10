@@ -9,6 +9,6 @@ module.exports = async function send(message, msg, dur = 0) {
     } else { 
         const reply = await msg.reply({embeds: [message]})
         if (dur < 1) { return; }
-    setTimeout(() => { msg.deletable === true ? msg.delete() : null; reply.deletable === true ? reply.delete() : null }, dur * 1000)
-     }
+        setTimeout(() => { msg.deletable === true ? msg.delete() : null; reply.deletable === true ? reply.delete() : null }, dur * 1000)
+    }
 }

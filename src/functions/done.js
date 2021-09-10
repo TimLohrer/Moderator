@@ -10,7 +10,7 @@ const log = require('./log')
  * @param {number} dur
  * @returns 
  */
-module.exports = async function error(message, msg, dur = 15) {
+module.exports = async function done(message, msg, dur = 15) {
     if (!msg) { return log(`Missing message object!`, `src/functions/done.js`, 'ERROR') }
     const embed = new MessageEmbed()
     .setTitle('Done')

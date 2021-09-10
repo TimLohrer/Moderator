@@ -14,11 +14,8 @@ module.exports = {
     cooldown: 60,
     permissions: ["MANAGE_GUILD"],
     async execute({message, args, db, bot, command}) {
+        const role = message.mentions.roles.first() || message.guild.roles.cache.find(role => role.name === args[0]) || message.guild.roles.cache.get(args[0])
         if (db.autorole === null) {
-            let role
-            if (!isNaN(parseInt(args[0]))) { role = message.guild.roles.cache.get(args[0]) }
-            else if (!message.mentions.roles.first()) { role = message.guild.roles.cache.find(role => role.name === args[0]) }
-            else if (message.mentions.roles.first()) { role = message.mentions.roles.first() }
             if (!role || role === undefined) { return bot.error(`Could not find the role \`${args[0].toString()}\`!`, message) }
             if (role.position > message.guild.roles.cache.find(role => role.name === bot.user.username).position) { return bot.error(`Please move my role (${message.guild.roles.cache.find(role => role.name === bot.user.username)}) **above** ${role} in your server settings! \nThis is necessary in order to use this role as an autorole!`, message, 60) }
             await firebase.collection('guilds').doc(message.guild.id).update({ autorole: role.id })
@@ -28,10 +25,6 @@ module.exports = {
         } else if (db.autorole !== null && !args[0]) {
             return bot.info(`The current autorole is <@&${db.autorole}>. Use \`${db.prefix}${command} none\` to **disable** autorole!`, message)
         } else if (db.autorole !== null && args[0] && args[0] !== 'none') {
-            let role
-            if (!isNaN(parseInt(args[0]))) { role = message.guild.roles.cache.get(args[0]) }
-            else if (!message.mentions.roles.first()) { role = message.guild.roles.cache.find(role => role.name === args[0]) }
-            else if (message.mentions.roles.first()) { role = message.mentions.roles.first() }
             if (!role || role === undefined) { return bot.error(`Could not find the role \`${args[0].toString()}\`!`, message) }
             if (role.position > message.guild.roles.cache.find(role => role.name === bot.user.username).position) { return bot.error(`Please move my role (${message.guild.roles.cache.find(role => role.name === bot.user.username)}) **above** ${role} in your server settings! \nThis is necessary in order to use this role as an autorole!`, message, 60) }
             if (role.id === db.autorole) { return bot.error(`${role} is already the autorole!`, message) }

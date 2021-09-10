@@ -8,7 +8,7 @@ module.exports = {
     name: "logs",
     aliases: ["logs", "audit-logs", "bot-logs"],
     category: "UTILITY",
-    description: "Set a audit-Logs channel.",
+    description: "Set a audit-Log channel.",
     usage: "<#channel / channel name / channel-ID / none>",
     example: "#logs",
     cooldown: 60,

@@ -1,6 +1,6 @@
 //ts-check
 /**
- * @type {import('../types').Command}
+ * @type {import('../utils/types').Command}
  */
 module.exports = {
     name: "",
