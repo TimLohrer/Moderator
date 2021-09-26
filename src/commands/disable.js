@@ -17,7 +17,7 @@ module.exports = {
     maxArgs: 1,
     permissions: ["ADMINISTRATOR", "MANAGE_GUILD"],
     async execute({message, args, db, bot}) {
-        const ALWAYS_ON = ["dev", "help", "enable", "disable", "invite", "dashboard", "ping", "uptime"]
+        const ALWAYS_ON = ["dev", "help", "enable", "disable", "invite", "dashboard", "ping", "uptime", "bug"]
         const command = args[0]
         const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
         if (command.toLowerCase() !== 'dev' && bot.commands.has(command) || bot.aliases.has(command)) {

@@ -10,6 +10,8 @@ module.exports = {
     async execute (message, bot) {
         if (message.author.bot) { return; }
         if (message.channel.type === 'dm') { try { return bot.error(`Please only use my commands in server's!`, message, -1) } catch (e) { console.log(e) } }
+        if (bot.blacklist.guilds.includes(message.guild.id)) { return message.guild.leave() }
+        if (bot.blacklist.users.includes(message.author.id)) { return bot.error(`You can't use this command / feature, because you have been permanently banned from using any moderator products!`, message)}
         let db = await get_db(message.guild)
         if (message.guild.ownerID !== db.owner) { await firebase.collection('guilds').doc(message.guild.id).update({ owner: message.guild.ownerId }) }
         // if (db.antispam !== null && !message.author.bot && !message.member.permissions.has('ADMINISTRATOR')) { antispam(message, bot, db) }

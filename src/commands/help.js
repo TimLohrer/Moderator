@@ -51,11 +51,10 @@ module.exports = {
             for (let category of categorys) { if (ctgrys === "" && category.toLowerCase() !== 'dev') { ctgrys += `\`${category.toUpperCase()}\`` } else if (category.toLowerCase() !== 'dev') { ctgrys += `, \`${category.toUpperCase()}\`` } }
             const embed = new bot.embed()
             .setTitle(`Help`)
-            .setDescription(`My Prefix for this server is \`${db.prefix}\`. \n\nIf you want to change my settings, you can now also use my **[Web-Dashboard](${process.env.dashboard})**! \n\nDo \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
+            .setDescription(`My Prefix for this server is \`${db.prefix}\`. \n\nIf you want to change my settings, you can now also use my **[Web-Dashboard](${process.env.dashboard})**! \n\nUse \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
             .setColor("ORANGE")
             .setFooter(`Please ignore {} and <> when using a command!`)
-            bot.info('Check your DM\'s!', message, 10, false, "📬")
-            try { return bot.send({ embeds: [embed]}, message.author) } catch (e) { console.log(e) }
+            try { bot.send({ embeds: [embed]}, message.author); return bot.info('Check your DM\'s!', message, 10, false, "📬") } catch { return bot.error(`I can't send you this message. Please enable direct messages from non friends.`, message) }
         }
         if (_args[0]) {
             if (bot.commands.has(lowArgs[0]) || bot.aliases.has(lowArgs[0]) || commandFiles.includes(`${lowArgs[0]}.js`)) {

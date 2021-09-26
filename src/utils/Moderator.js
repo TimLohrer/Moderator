@@ -20,6 +20,7 @@ class Moderator extends Client {
         this.embed = MessageEmbed
         this.emoji = require('../data/emojis.json')
         this.colors = require('../data/colors.json')
+        this.blacklist = require('../data/blacklist.json')
         this.cooldowns = new Map()
         this.antispam = new Collection()
         this.events = new Collection()

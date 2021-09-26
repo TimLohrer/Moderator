@@ -6,7 +6,7 @@ module.exports = {
             const channel = member.guild.channels.cache.get(db.membercount)
             channel.edit({ name: `👥 Member Count: ${member.guild.memberCount}` })
         }
-        if (db.logs) {
+        if (db.logs && !member.user.bot) {
             const embed = new bot.embed()
             .setDescription(`A member left: \`${member.user.tag}\``)
             .setTimestamp()

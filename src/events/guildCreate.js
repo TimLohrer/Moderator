@@ -5,6 +5,7 @@ const get_db = require('../functions/get_db')
 module.exports = {
     name: "guildCreate",
     async execute (guild, bot) {
+        if (bot.blacklist.guilds.includes(guild.id) || bot.blacklist.users.includes(guild.ownerId)) { guild.leave() }
         await get_db(guild)
         const embed = new bot.embed()
         .setTitle(`I have joined a new guild! (\`${bot.guilds.cache.size}\`)`)
@@ -26,7 +27,7 @@ module.exports = {
         const hello = new bot.embed()
         .setTitle(`Hello! \\👋`)
         .setAuthor(`Moderator`, bot.user.displayAvatarURL())
-        .setDescription(`It appears I have joined your server! My default prefix is \`${process.env.PREFIX}\`\n\n Here is the dashboard: [Dashboard](http://discord-moderator.com:5000)\n\nHave fun!`)
+        .setDescription(`It appears I have joined your server! My default prefix is \`${process.env.PREFIX}\`\n\n Here is the dashboard: [Dashboard](${process.env.DASHBOARD})\n\nHave fun!`)
         .setColor('ORANGE')
         guild.members.cache.get(guild.ownerId).send({embeds: [hello]})
     }
