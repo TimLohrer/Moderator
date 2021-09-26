@@ -33,7 +33,7 @@ module.exports = {
             if(cmd.split('.')[0] !== 'dev') {
                 if (bot.commands.has(cmd.split('.')[0])) {
                     if (db.disabled !== []) {
-                        if (db.disabled.includes(bot.commands.get(cmd.split('.')[0]).id)) {
+                        if (db.disabled.includes(bot.commands.get(cmd.split('.')[0]).name)) {
                             commands.push(`${cmd.split('.')[0]}|Disabled for this server.`)
                         } else {
                             commands.push(bot.commands.get(cmd.split('.')[0])) 
@@ -47,11 +47,11 @@ module.exports = {
         if (!_args[0] || message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
             let cmds = ""
             let ctgrys = ""
-            for (let cmd of commands) { if (cmd.name) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\`` }}
+            for (let cmd of commands) { if (cmd.name && !db.disabled.includes(cmd.name)) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\`` }}
             for (let category of categorys) { if (ctgrys === "" && category.toLowerCase() !== 'dev') { ctgrys += `\`${category.toUpperCase()}\`` } else if (category.toLowerCase() !== 'dev') { ctgrys += `, \`${category.toUpperCase()}\`` } }
             const embed = new bot.embed()
             .setTitle(`Help`)
-            .setDescription(`My Prefix for this server is \`${db.prefix}\`. \nDo \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
+            .setDescription(`My Prefix for this server is \`${db.prefix}\`. \n\nIf you want to change my settings, you can now also use my **[Web-Dashboard](${process.env.dashboard})**! \n\nDo \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
             .setColor("ORANGE")
             .setFooter(`Please ignore {} and <> when using a command!`)
             bot.info('Check your DM\'s!', message, 10, false, "📬")
@@ -68,13 +68,15 @@ module.exports = {
                 if (cmd.cooldown) { cooldown = `${cmd.cooldown} sec` } else { cooldown = 'This command doesn\'t have a cooldown!' }
                 const embed = new bot.embed()
                 embed.setTitle(`Help for command ${cmd.name || cmd}`)
-                if (cmd.name) {
+                if (cmd.name && !db.disabled.includes(cmd.name)) {
                     embed.setDescription(`\nName: \`${cmd.name}\` \n\nAliases: ${aliases} \n\nDescription: \`${cmd.description}\` \n\nCategory: \`${cmd.category}\` \n\nUsage: \`${db.prefix}${cmd.name || cmd} ${cmd.usage}\` \n\nExample: \`${db.prefix}${cmd.name || cmd} ${cmd.example.replace('{user}', message.author.tag)}\` \n\nCooldown: \`${cooldown}\` \n\nPermissions: ${perms}`)
+                    embed.setFooter(`Please ignore {} and <> when using this command!`)
+                } else if (!cmd.name && !db.disabled.includes(cmd)) {
+                    embed.setDescription(`**This command is currently disabled!**`)
                 } else {
-                    embed.setDescription(`This command is currently disabled!`)
+                    embed.setDescription(`**This command was disabled for this server!**`)
                 }
                 embed.setColor("ORANGE")
-                embed.setFooter(`Please ignore {} and <> when using this command!`)
                 return bot.reply({embeds:[embed]}, message, 60)
             }
             else if (categorys.includes(_args[0])) {

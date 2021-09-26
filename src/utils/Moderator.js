@@ -23,6 +23,7 @@ class Moderator extends Client {
         this.cooldowns = new Map()
         this.antispam = new Collection()
         this.events = new Collection()
+        this.slashCommands = new Collection()
         this.commands = new Collection()
         this.aliases = new Collection()
         this.devs = process.env.DEVS.split(',')

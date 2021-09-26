@@ -10,6 +10,6 @@
     usage: " ",
     example: " ",
     async execute({message, args, db, bot}) {
-        return bot.info(`[Invite me](${process.env.DASHBOARD}/invite)`, message, 30, false, '🔗')
+        return bot.info(`[Invite me](${process.env.DASHBOARD + '/invite'})`, message, 30, false, '🔗')
     }
 }

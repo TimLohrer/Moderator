@@ -166,23 +166,14 @@ module.exports = {
             consl('Restarting...', 'src/commands/dev.js', 'SUCCESS', message.author.tag)
             return message.react('✅')
         }
-        if (command.toLowerCase() === 'db') {
-            let guildID = args[1]
-            let key = args[2]
-            let value = args[3]
-            if (bot.guilds.cache.get(guildID) === undefined) { return message.react('⚠️') }
-            if (key.toLowerCase() === 'premium') {
-                value = JSON.parse(value)
-                if (value !== true && value !== false) { return message.react('⚠️') }
-                try { await firebase.collection('guilds').doc(guildID).update({ premium: value }) } 
-                catch (e) { return bot.error(`\`\`\`${e}\`\`\``) }
-                consl(`Set key \`${key}\` for guild \`${bot.guilds.cache.get(guildID).name} (${guildID})\` to value \`${value}\`!`, `src/commands/dev.js`, `SUCCESS`, message.author.tag)
-                return message.react('✅')
-            } else if (key.toLowerCase() === '') {
-                
-            }else {
-                return message.react('❌')
+        if (command.toLowerCase() === 'run') {
+            let code = args.slice(1).join(' ')
+            let res;
+            async function run() {
+                try { res = eval(code) } catch (e) { return bot.reply(`\`\`\`An error accured while executing "${code}": \n\n${e}\`\`\``, message, 30) }
             }
+            run()
+            bot.reply(`\`\`\`${!res ? `Done executing "${code}"!` : `Done executing "${code}": \n\n${res}`}\`\`\``, message, 30)
         }
     }
 }

@@ -4,6 +4,7 @@ const fs = require('fs')
 const antispam = require('../features/antispam')
 const get_db = require('../functions/get_db')
 const { Collection } = require('discord.js')
+
 module.exports = {
     name: "messageCreate",
     async execute (message, bot) {
