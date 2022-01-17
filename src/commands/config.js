@@ -16,7 +16,7 @@ module.exports = {
         for (let cmd of db.disabled) { disabled !== "" ? disabled += `, ${cmd}` : disabled += cmd }
         const embed = new bot.embed()
         .setTitle('Moderator Config')
-        .setDescription(`\n Hate using commands to change my settings.. ? \n**Try out our new and convenient way to change my settings with *eez*** \n [[Web Dashboard]](${process.env.DASHBOARD}) \n\n${db.disabled.length > 0 ? `**Disabled commands for this guild:** \`\`\`${disabled}\`\`\`` : ''}`)
+        .setDescription(`\n Hate using commands to change my settings.. ? \n**Try out our new **[Web Dashboard](${process.env.DASHBOARD}) \n\n${db.disabled.length > 0 ? `**Disabled commands for this guild:** \`\`\`${disabled}\`\`\`` : ''}`)
         .addFields([
             { name :'Prefix:', value: `\`${db.prefix}\``, inline: true },
             { name: 'Logs:', value: `${db.logs !== null ? `<#${db.logs}>` : `${bot.emoji.error} \`Disabled\`` }`, inline: true},

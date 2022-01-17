@@ -4,7 +4,7 @@
  */
  module.exports = {
     name: "dashboard",
-    aliases: ["dashboard", "db", "web-db", "web-dashboard", "webdb", "webdashboard"],
+    aliases: ["dashboard", "db", "webdb", "web-dashboard", "webdashboard"],
     category: "INFO",
     description: "Gives you the link to my Web-Dashboard.",
     usage: " ",

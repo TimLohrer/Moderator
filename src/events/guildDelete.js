@@ -13,16 +13,6 @@ module.exports = {
                 name: '🛑 Name',
                 value: `${guild.name}`,
                 inline: true
-            },
-            {
-                name: '🕵️‍♂️ Owner',
-                value: `${guild.members.cache.get(guild.ownerId).user.tag}`,
-                inline: true
-            },
-            {
-                name: '📊 Members',
-                value: `${guild.memberCount}`,
-                inline: true
             }
         )
         .setTimestamp()

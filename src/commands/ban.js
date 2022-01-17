@@ -8,8 +8,8 @@ module.exports = {
     aliases: ["ban", "b"],
     category: "MODERATION",
     description: "Banns a member from this server.",
-    usage: "ban <user> {reason}",
-    example: `ban @{user} being anoying`,
+    usage: "<user> {reason}",
+    example: `@{user} being anoying`,
     minArgs: 1,
     permissions: ["BAN_MEMBERS"],
     async execute({message, args, db, bot}) {
