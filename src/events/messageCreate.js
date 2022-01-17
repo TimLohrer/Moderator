@@ -22,7 +22,7 @@ module.exports = {
                 if (bot.commands.has('help')) {
                     bot.commands.get('help').execute({message, args, db, bot})
                 } else {
-                    return bot.error(`This command is currently disabled globaly due to maintenance... Try again in \`5min\`!`, message)
+                    return bot.error(`This command is currently disabled globaly due to maintenance... Try again later!`, message)
                 }
             }
         }
@@ -34,12 +34,12 @@ module.exports = {
             for (let file of commandFiles) {
                 cmd = require(`../commands/${file}`)
                 if (cmd.name && cmd.name === command || cmd.aliases && cmd.aliases.includes(command)) {
-                    return bot.error(`This command is currently disabled globaly due to maintenence... Try again in \`5min\`!`, message)
+                    return bot.error(`This command is currently disabled globaly due to maintenence... Try again later!`, message)
                 }
             }
             return;
         }
-        if (cmd.name !== 'dev' && db.disabled.includes(cmd.name)) { return bot.info(`This command was **disabled** for **this server** by an **Admin**...`, message, true, 30) }
+        if (cmd.name !== 'dev' && db.disabled.includes(cmd.name)) { return bot.info(`This command was **disabled** for **this server** by an **Admin**...`, message, 30, true) }
         if(!message.guild.me.permissions.has('ADMINISTRATOR')) { return bot.info(`I can't execute this command, since I am missing the permission \`ADMINISTRATOR\`! \n\n**Please make sure to inform an Admin about this issue!**`, message, true, 60) }
         if (message.guild.roles.cache.size - 1 > message.guild.roles.cache.find(role => role.name === bot.user.username).position) { return bot.error(`Please move my role (${message.guild.roles.cache.find(role => role.name === bot.user.username)}) **above** ${message.guild.roles.cache.find(role => role.position === message.guild.roles.cache.size - 1)} in your server settings! \nThis is important for some commands to work! \n\n**Please make sure to inform an Admin about this issue!**`, message, 60) }
         if (message.channel.type === 'dm') { return bot.send(`Hey <@${message.author.id}>, \nPlease only use my commands in servers...`, message.channel) }

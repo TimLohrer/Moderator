@@ -45,16 +45,16 @@ module.exports = {
             }
         }
         if (!_args[0] || message.mentions.users.first() && message.mentions.users.first().id === bot.user.id) {
-            let cmds = ""
-            let ctgrys = ""
-            for (let cmd of commands) { if (cmd.name && !db.disabled.includes(cmd.name)) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\`` }}
-            for (let category of categorys) { if (ctgrys === "" && category.toLowerCase() !== 'dev') { ctgrys += `\`${category.toUpperCase()}\`` } else if (category.toLowerCase() !== 'dev') { ctgrys += `, \`${category.toUpperCase()}\`` } }
-            const embed = new bot.embed()
-            .setTitle(`Help`)
-            .setDescription(`My Prefix for this server is \`${db.prefix}\`. \n\nIf you want to change my settings, you can now also use my **[Web-Dashboard](${process.env.dashboard})**! \n\nUse \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
-            .setColor("ORANGE")
-            .setFooter(`Please ignore {} and <> when using a command!`)
-            try { bot.send({ embeds: [embed]}, message.author); return bot.info('Check your DM\'s!', message, 10, false, "📬") } catch { return bot.error(`I can't send you this message. Please enable direct messages from non friends.`, message) }
+            // let cmds = ""
+            // let ctgrys = ""
+            // for (let cmd of commands) { if (cmd.name && !db.disabled.includes(cmd.name)) { cmds += `**${cmd.name}** \n\`\`\`${db.prefix}${cmd.name} ${cmd.usage}\`\`\`` } else { cmds += `**${cmd.split('|')[0]}** \n\`\`\`${cmd.split('|')[1]}\`\`\`` }}
+            // for (let category of categorys) { if (ctgrys === "" && category.toLowerCase() !== 'dev') { ctgrys += `\`${category.toUpperCase()}\`` } else if (category.toLowerCase() !== 'dev') { ctgrys += `, \`${category.toUpperCase()}\`` } }
+            // const embed = new bot.embed()
+            // .setTitle(`Help`)
+            // .setDescription(`My Prefix for this server is \`${db.prefix}\`. \n\nIf you want to change my settings, you can now also use my **[Web-Dashboard](${process.env.dashboard})**! \n\nUse \`${db.prefix}help {command}\` to get more information about a command, \n or \`${db.prefix}help {category}\` to get more information on a category! \n\nCurrently available categorys: ${ctgrys} \n\n${cmds}`)
+            // .setColor("ORANGE")
+            // .setFooter(`Please ignore {} and <> when using a command!`)
+            return bot.info(`Check out our Dashboard to get a list of all commands! **[Command list](${process.env.DASHBOARD}/commands)**`, message, 25)
         }
         if (_args[0]) {
             if (bot.commands.has(lowArgs[0]) || bot.aliases.has(lowArgs[0]) || commandFiles.includes(`${lowArgs[0]}.js`)) {

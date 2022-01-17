@@ -52,5 +52,4 @@ bot.log(`Finished loading ${bot.events.size} events`, `src/moderator.js`, 'INFO'
 console.log(" ")
 bot.log(`Finished loading ${bot.commands.size} commands`, `src/moderator.js`, 'INFO')
 
-
 bot.login(process.env.TOKEN)

@@ -12,6 +12,6 @@ module.exports = {
     cooldown: 30,
     async execute({message, args, db, bot}) {
         const time = bot.ms(bot.uptime)
-        return bot.info(`I am now online since \`${time}\`!`, message, true, 30)
+        return bot.info(`I am now online since \`${time}\`!`, message, 20, true)
     }
 }
